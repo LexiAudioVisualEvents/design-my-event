@@ -78,6 +78,10 @@ body{
 	grid-template-columns: repeat(3, 110px);
 	gap:10px;
 	width:max-content;
+	justify-content: start;
+}
+.card .grid{
+  max-width: 330px; /* 3 × 110px */
 }
 @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
 .tile{
@@ -196,8 +200,3 @@ body{
 .historyMeta{display:flex; flex-direction:column}
 .historyLine{font-size:13px; font-weight:750}
 .footer{margin-top:16px}
-.card{
-  display: inline-block;
-  width: max-content;
-  max-width: 100%;
-}
