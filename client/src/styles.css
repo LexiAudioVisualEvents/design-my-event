@@ -37,8 +37,20 @@ body{
 }
 .roomInput:focus{border-color: rgba(37,99,235,.4); box-shadow: 0 0 0 4px rgba(37,99,235,.12);}
 
-.layout{display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; align-items:start;}
-@media (max-width: 980px){ .layout{grid-template-columns:1fr;} .roomWrap{min-width: 220px;} }
+.layout{
+	display:grid;
+	grid-template-columns: 1fr minmax(360px, 420px);
+	gap:18px;
+	align-items:start;
+}
+@media (max-width: 980px){
+	.layout{
+		grid-template-columns:1fr;
+	}
+	.roomWrap{
+		min-width: 220px;
+	} 
+}
 
 .card{
   background:rgba(255,255,255,.9);
