@@ -165,19 +165,11 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
         "Authorization": f"Token {REPLICATE_API_TOKEN}",
         "Content-Type": "application/json",
     }
+    payload = {"input": {"prompt": prompt}}
 
-    payload = {
-        "input": {
-            "prompt": prompt
-        }
-    }
-    payload = {
-        "input": {
-            "prompt": prompt}}
-
-if venue_image_url:
-    payload["input"]["image"] = venue_image_url
-    payload["input"]["prompt_strength"] = 0.8
+    if venue_image_url:
+        payload["input"]["image"] = venue_image_url
+        payload["input"]["prompt_strength"] = 0.8
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
@@ -208,6 +200,9 @@ if venue_image_url:
             time.sleep(0.75)
 
         raise RuntimeError("Replicate request timed out")
+
+
+
 
 def download_image_as_data_url(url: str) -> str:
     with httpx.Client(timeout=120.0, follow_redirects=True) as client:
