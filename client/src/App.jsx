@@ -51,6 +51,14 @@ export default function App() {
   const [history, setHistory] = useState([]); // array of { mood,palette,layout, image_data_url }
 
   const ready = useMemo(() => mood && palette && layout, [mood, palette, layout]);
+  
+  const VENUE_IMAGES = [
+  `${window.location.origin}/venues/venue-1/hero.JPG`,
+  `${window.location.origin}/venues/venue-1/alt.jpg`,
+];
+
+  const pickVenueImage = () =>
+  VENUE_IMAGES[Math.floor(Math.random() * VENUE_IMAGES.length)];
 
   async function generate() {
     setError("");
@@ -60,7 +68,13 @@ export default function App() {
       const res = await fetch(`${API_BASE}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mood, palette, layout, room: room.trim() || null }),
+        body: JSON.stringify({
+		mood,
+		palette,
+		layout,
+		room: room.trim() || null,
+		venue_image_url: pickVenueImage(),
+}),
       });
 
       if (!res.ok) {
