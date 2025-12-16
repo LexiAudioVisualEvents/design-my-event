@@ -6,7 +6,7 @@ const MOODS = ["Editorial", "Luxe", "Minimal", "Mediterranean", "Manhattan"];
 const PALETTES = ["Terracotta", "Champagne", "Slate", "Coastal Neutral"];
 const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function TileGroup({ title, items, value, onChange, subtitle }) {
   return (
