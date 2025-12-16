@@ -106,47 +106,110 @@ def set_cached(key: str, value: dict):
 # Prompt builder
 # --------------------------------------------------
 def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> str:
-    base = (
-        "Photoreal event styling moodboard. Bright, airy, daylight-balanced lighting. "
-        "Premium event design, realistic venue materials, no text, no logos, no watermark."
+    venue_lock = (
+        "Use the provided venue reference image as a fixed architectural base. "
+        "Do not change the room geometry, walls, ceiling height, columns, doors, windows, "
+        "or camera angle. Maintain the exact spatial layout and perspective of the venue."
+    )
+
+    composition = (
+        "Photorealistic event styling visualisation. High-end professional event photography. "
+        "Same camera position as the reference image. Realistic materials, realistic lighting, "
+        "no text, no logos, no watermark."
     )
 
     mood_map = {
-        "Editorial": "Editorial styling, high-end magazine look, crisp composition.",
-        "Luxe": "Luxe styling, layered linens, refined textures, elegant tableware.",
-        "Minimal": "Minimal styling, clean lines, negative space, calm sophistication.",
-        "Mediterranean": "Mediterranean styling, sun-warmed textures, relaxed elegance.",
-        "Manhattan": "Manhattan styling, modern architecture, polished details."
+        "Editorial": (
+            "Editorial event styling with a high-fashion magazine aesthetic. "
+            "Confident, intentional design with strong contrast, sculptural elements, "
+            "clean compositions, and curated focal points."
+        ),
+        "Luxe": (
+            "Luxury event styling. Rich layered textures, premium fabrics, elegant florals, "
+            "polished finishes, refined table settings, and a sense of exclusivity."
+        ),
+        "Minimal": (
+            "Minimalist event styling. Clean lines, restrained color use, negative space, "
+            "precise placement, and calm sophistication."
+        ),
+        "Mediterranean": (
+            "Mediterranean-inspired event styling. Sun-warmed tones, natural textures, "
+            "relaxed elegance, organic materials, and soft ambient lighting."
+        ),
+        "Manhattan": (
+            "Modern Manhattan-style event design. Architectural lighting, sharp lines, "
+            "urban elegance, polished surfaces, and contemporary furniture."
+        )
     }
 
     palette_map = {
-        "Terracotta": "Terracotta, warm sand, clay accents, soft brass.",
-        "Champagne": "Champagne, ivory, warm whites, soft gold.",
-        "Slate": "Slate grey, cool stone, airy contrast.",
-        "Coastal Neutral": "Driftwood, sand, linen white, warm greys."
+        "Terracotta": (
+            "Color palette dominated by terracotta, warm sand, and clay tones, "
+            "with subtle brass or bronze accents. Apply these colors through lighting, "
+            "table linens, florals, and decor."
+        ),
+        "Champagne": (
+            "Champagne, ivory, and warm white palette with soft gold accents. "
+            "Use this palette consistently across lighting, tableware, linens, and decor."
+        ),
+        "Slate": (
+            "Slate grey and cool stone palette with airy contrast. "
+            "Cool-toned lighting with crisp highlights and controlled shadows."
+        ),
+        "Coastal Neutral": (
+            "Coastal neutral palette: driftwood, sand, linen white, and warm greys. "
+            "Soft diffused lighting and natural materials."
+        )
     }
 
     layout_map = {
-        "Cocktail": "Cocktail layout, lounge clusters, relaxed mingling.",
-        "Long Tables": "Long tables, continuous runs, layered centre styling.",
-        "Banquet": "Round banquet tables, balanced centrepieces.",
-        "Theatre": "Theatre seating, refined aisle moments."
+        "Cocktail": (
+            "Cocktail-style event layout with curated lounge clusters, "
+            "high-top tables, relaxed circulation paths, and layered decor moments."
+        ),
+        "Long Tables": (
+            "Long banquet tables arranged in continuous runs. "
+            "Layered table styling with runners, candles, florals, and refined place settings."
+        ),
+        "Banquet": (
+            "Round banquet tables with balanced centrepieces, "
+            "clear sightlines, and cohesive spacing."
+        ),
+        "Theatre": (
+            "Theatre-style seating with refined aisle styling, "
+            "intentional lighting focus toward the stage or focal area."
+        )
     }
 
+    lighting_plan = (
+        "Lighting design is intentional and dominant. "
+        "Use controlled event lighting rather than generic daylight. "
+        "Define the mood using uplighting, warm accent lighting, "
+        "and directional highlights while preserving realistic exposure."
+    )
+
     room_line = (
-        f"Designed for the venue room: {room}."
+        f"This design is specifically styled for the room named: {room}."
         if room else
-        "Designed for a modern event venue."
+        "This design is styled for a modern event venue interior."
+    )
+
+    negative_constraints = (
+        "Do not alter architecture. No new walls, windows, doors, or ceiling features. "
+        "No fisheye or wide-angle distortion. No empty or unfinished space. "
+        "Avoid bland or flat lighting. No signage text."
     )
 
     return "\n".join([
-        base,
+        venue_lock,
+        composition,
+        lighting_plan,
         mood_map.get(mood, mood),
         palette_map.get(palette, palette),
         layout_map.get(layout, layout),
         room_line,
+        negative_constraints
     ])
-
 # --------------------------------------------------
 # Replicate integration (raw HTTP)
 # --------------------------------------------------
