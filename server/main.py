@@ -169,7 +169,7 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
 
     if venue_image_url:
         payload["input"]["image"] = venue_image_url
-        payload["input"]["prompt_strength"] = 0.8
+        payload["input"]["prompt_strength"] = 0.4
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
