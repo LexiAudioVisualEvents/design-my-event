@@ -39,7 +39,7 @@ body{
 
 .layout{
 	display:grid;
-	grid-template-columns: 1fr minmax(360px, 420px);
+	grid-template-columns: 1fr minmax(360px, 520px);
 	gap:18px;
 	align-items:start;
 }
