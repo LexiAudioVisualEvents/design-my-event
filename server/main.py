@@ -56,7 +56,8 @@ class GenerateRequest(BaseModel):
     palette: str = Field(..., min_length=2, max_length=40)
     layout: str = Field(..., min_length=2, max_length=40)
     room: Optional[str] = Field(None, max_length=80)
-
+    venue_image_url: Optional[str] = None
+    
 class GenerateResponse(BaseModel):
     image_data_url: str
     prompt: str
@@ -149,7 +150,7 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
 # --------------------------------------------------
 # Replicate integration (raw HTTP)
 # --------------------------------------------------
-def replicate_generate_image_url(prompt: str) -> str:
+def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = None) -> str:
     if not REPLICATE_API_TOKEN:
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
 
@@ -170,6 +171,13 @@ def replicate_generate_image_url(prompt: str) -> str:
             "prompt": prompt
         }
     }
+    payload = {
+        "input": {
+            "prompt": prompt}}
+
+if venue_image_url:
+    payload["input"]["image"] = venue_image_url
+    payload["input"]["prompt_strength"] = 0.8
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
@@ -228,7 +236,7 @@ def generate(req: GenerateRequest, request: Request):
     prompt = build_prompt(req.mood, req.palette, req.layout, req.room)
 
     try:
-        image_url = replicate_generate_image_url(prompt)
+        image_url = replicate_generate_image_url(prompt, req.venue_image_url)
         data_url = download_image_as_data_url(image_url)
 
         resp = {
