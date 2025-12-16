@@ -73,13 +73,16 @@ body{
   padding:6px 10px; background:#fff;
 }
 
-.grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;}
+.grid{
+	display:grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap:10px;
+}
 @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
-
 .tile{
   text-align:left;
-  padding:14px 14px;
-  border-radius:16px;
+  padding:10px 12px;
+  border-radius:14px;
   border:1px solid var(--line);
   background: linear-gradient(180deg, #fff, #fbfdff);
   cursor:pointer;
