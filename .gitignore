@@ -1,0 +1,13 @@
+# local venv
+.venv/
+venv/
+
+# python
+__pycache__/
+*.pyc
+.env
+
+# node
+client/node_modules/
+client/dist/
+server/__pycache__/
