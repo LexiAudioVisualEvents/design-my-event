@@ -81,8 +81,8 @@ body{
 @media (max-width: 980px){ .grid{grid-template-columns: repeat(2, 1fr);} }
 .tile{
   text-align:center;
-  width:110px
-  max-width:110px
+  width:110px;
+  max-width:110px;
   padding:10px 12px;
   border-radius:14px;
   border:1px solid var(--line);
