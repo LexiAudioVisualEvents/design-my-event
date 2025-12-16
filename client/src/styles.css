@@ -196,3 +196,8 @@ body{
 .historyMeta{display:flex; flex-direction:column}
 .historyLine{font-size:13px; font-weight:750}
 .footer{margin-top:16px}
+.card{
+  display: inline-block;
+  width: max-content;
+  max-width: 100%;
+}
