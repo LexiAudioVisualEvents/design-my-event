@@ -22,7 +22,6 @@ ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
 
 REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN", "")
 REPLICATE_MODEL = os.getenv("REPLICATE_MODEL", "black-forest-labs/flux-schnell")
-print("REPLICATE_MODEL =", REPLICATE_MODEL)
 
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "86400"))
 RATE_LIMIT_SECONDS = float(os.getenv("RATE_LIMIT_SECONDS", "2.5"))
@@ -82,7 +81,11 @@ def throttle(request: Request):
     _last_call_by_ip[ip] = now
 
 def cache_key(payload: GenerateRequest) -> str:
-    raw = f"{payload.mood}|{payload.palette}|{payload.layout}|{payload.room or ''}"
+    raw = (
+        f"{REPLICATE_MODEL}|"
+        f"{payload.mood}|{payload.palette}|{payload.layout}|{payload.room or ''}|"
+        f"{payload.venue_image_url or ''}"
+    )
     return hashlib.sha256(raw.lower().encode("utf-8")).hexdigest()
 
 def get_cached(key: str) -> Optional[dict]:
@@ -105,9 +108,16 @@ def set_cached(key: str, value: dict):
 # --------------------------------------------------
 def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> str:
     venue_lock = (
-        "Use the provided venue reference image as a fixed architectural base. "
-        "Do not change the room geometry, walls, ceiling height, columns, doors, windows, "
-        "or camera angle. Maintain the exact spatial layout and perspective of the venue."
+        "HIGHEST PRIORITY: Keep the exact architecture and the exact camera/view.\n"
+        "Do not change walls, ceiling height, columns, doors, windows, floor edges.\n"
+        "Do not change viewpoint, framing, horizon line, vanishing points, or lens/FOV.\n"
+    )
+
+    allowed_changes = (
+        "ALLOWED AND ENCOURAGED:\n"
+        "Apply strong event lighting, decor, furniture, florals, linens, and props.\n"
+        "Make the lighting and palette the dominant visual transformation.\n"
+        "The architecture and camera must remain unchanged.\n"
     )
 
     composition = (
@@ -200,6 +210,7 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
 
     return "\n".join([
         venue_lock,
+        allowed_changes,
         composition,
         lighting_plan,
         mood_map.get(mood, mood),
@@ -230,7 +241,7 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
 
     if venue_image_url:
         payload["input"]["image"] = venue_image_url
-        payload["input"]["prompt_strength"] = 0.65
+        payload["input"]["prompt_strength"] = 0.6
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
