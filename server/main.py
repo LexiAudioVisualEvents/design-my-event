@@ -227,7 +227,7 @@ def replicate_generate_image_url(prompt: str, model: str, venue_image_url: Optio
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
 
     if "/" not in model:
-    raise RuntimeError("Model must be 'owner/name'")
+        raise RuntimeError("Model must be 'owner/name'")
 
     owner, name = model.split("/", 1)
 
