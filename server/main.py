@@ -22,6 +22,11 @@ ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
 
 REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN", "")
 REPLICATE_MODEL = os.getenv("REPLICATE_MODEL", "black-forest-labs/flux-schnell")
+REPLICATE_FAST_MODEL = os.getenv("REPLICATE_FAST_MODEL", "black-forest-labs/flux-schnell")
+REPLICATE_QUALITY_MODEL = os.getenv("REPLICATE_QUALITY_MODEL", "black-forest-labs/flux-dev")
+
+def resolve_model(mode: str) -> str:
+    return REPLICATE_FAST_MODEL if mode == "fast" else REPLICATE_QUALITY_MODEL
 
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "86400"))
 RATE_LIMIT_SECONDS = float(os.getenv("RATE_LIMIT_SECONDS", "2.5"))
