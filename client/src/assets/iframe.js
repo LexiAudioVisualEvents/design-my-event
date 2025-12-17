@@ -1,22 +1,30 @@
-  const PARENT_ORIGIN = "https://audiovisualevents.com.au";
+const PARENT_ORIGIN = "https://audiovisualevents.com.au";
 
-  function postMoodboard() {
-    const img = document.querySelector("img.previewImg");
-    if (!img?.src) return;
-    if (!img.src.startsWith("data:image/")) return;
+let lastSentSrc = "";
 
-    window.parent.postMessage(
-      { type: "MOODBOARD_DATA_URL", dataUrl: img.src },
-      PARENT_ORIGIN
-    );
-  }
+function postMoodboard() {
+  const img = document.querySelector(".previewImg");
+  const src = img?.src || "";
+  if (!src) return;
 
-  window.addEventListener("load", postMoodboard);
+  // If you ONLY want data URLs, keep this line. Otherwise delete it.
+  // if (!src.startsWith("data:image/")) return;
 
-  const mo = new MutationObserver(postMoodboard);
-  mo.observe(document.documentElement, {
-    subtree: true,
-    childList: true,
-    attributes: true,
-    attributeFilter: ["src"]
-  });
+  if (src === lastSentSrc) return;
+  lastSentSrc = src;
+
+  window.parent.postMessage(
+    { type: "MOODBOARD_IMAGE_SRC", src },
+    PARENT_ORIGIN
+  );
+}
+
+window.addEventListener("load", postMoodboard);
+
+const mo = new MutationObserver(postMoodboard);
+mo.observe(document.documentElement, {
+  subtree: true,
+  childList: true,
+  attributes: true,
+  attributeFilter: ["src"]
+});
