@@ -1,4 +1,3 @@
-<script>
   const PARENT_ORIGIN = "https://audiovisualevents.com.au";
 
   function postMoodboard() {
@@ -21,4 +20,3 @@
     attributes: true,
     attributeFilter: ["src"]
   });
-</script>
