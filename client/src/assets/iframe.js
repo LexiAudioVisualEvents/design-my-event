@@ -1,5 +1,7 @@
 const PARENT_ORIGIN = "https://audiovisualevents.com.au";
 
+console.log("iframe helper loaded");
+
 let lastSentSrc = "";
 
 function postMoodboard() {
