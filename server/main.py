@@ -24,6 +24,7 @@ REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN", "")
 REPLICATE_MODEL = os.getenv(
     "REPLICATE_MODEL",
     "black-forest-labs/flux-schnell"  # must be owner/name
+    print("REPLICATE_MODEL =", REPLICATE_MODEL)
 )
 
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "86400"))
