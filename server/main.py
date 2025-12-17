@@ -22,11 +22,7 @@ ALLOWED_ORIGIN = os.getenv("ALLOWED_ORIGIN", "*")
 
 REPLICATE_API_TOKEN = os.getenv("REPLICATE_API_TOKEN", "")
 REPLICATE_MODEL = os.getenv("REPLICATE_MODEL", "black-forest-labs/flux-schnell")
-REPLICATE_FAST_MODEL = REPLICATE_MODEL
-REPLICATE_QUALITY_MODEL = "black-forest-labs/flux-dev"
 
-def resolve_model(mode: str) -> str:
-    return REPLICATE_FAST_MODEL if mode == "fast" else REPLICATE_QUALITY_MODEL
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "86400"))
 RATE_LIMIT_SECONDS = float(os.getenv("RATE_LIMIT_SECONDS", "2.5"))
 
@@ -226,14 +222,14 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
 # --------------------------------------------------
 # Replicate integration (raw HTTP)
 # --------------------------------------------------
-def replicate_generate_image_url(prompt: str, model: str, venue_image_url: Optional[str] = None) -> str:
+def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = None) -> str:
     if not REPLICATE_API_TOKEN:
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
 
-    if "/" not in model:
-        raise RuntimeError("Model must be 'owner/name'")
+    if "/" not in REPLICATE_MODEL:
+        raise RuntimeError("REPLICATE_MODEL must be 'owner/name'")
 
-    owner, name = model.split("/", 1)
+    owner, name = REPLICATE_MODEL.split("/", 1)
 
     create_url = f"https://api.replicate.com/v1/models/{owner}/{name}/predictions"
 
@@ -307,8 +303,7 @@ def generate(req: GenerateRequest, request: Request):
     prompt = build_prompt(req.mood, req.palette, req.layout, req.room)
 
     try:
-        model = resolve_model(req.mode)
-        image_url = replicate_generate_image_url(prompt, model, req.venue_image_url)
+        image_url = replicate_generate_image_url(prompt, req.venue_image_url)
         data_url = download_image_as_data_url(image_url)
 
         resp = {
