@@ -52,9 +52,8 @@ export default function App() {
 
   const ready = useMemo(() => mood && palette && layout, [mood, palette, layout]);
   
-  const VENUE_IMAGES = [
-   `${window.location.origin}/venues/venue-1/Watersedge_Lev2_render.jpg`;
-];
+	const VENUE_IMAGE = `${window.location.origin}/venues/venue-1/Watersedge_Lev2_render.jpg`;
+	const pickVenueImage = () => VENUE_IMAGE;
 
   const pickVenueImage = () =>
   VENUE_IMAGES[Math.floor(Math.random() * VENUE_IMAGES.length)];
