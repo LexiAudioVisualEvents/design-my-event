@@ -231,10 +231,13 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
     if not REPLICATE_API_TOKEN:
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
 
-    if "/" not in REPLICATE_MODEL:
-        raise RuntimeError("REPLICATE_MODEL must be 'owner/name'")
+    mode = os.getenv("REPLICATE_MODE", "fast").strip().lower()
+    model = resolve_model(mode)
 
-    owner, name = REPLICATE_MODEL.split("/", 1)
+    if "/" not in model:
+        raise RuntimeError("Resolved model must be 'owner/name'")
+
+    owner, name = model.split("/", 1)
 
     create_url = f"https://api.replicate.com/v1/models/{owner}/{name}/predictions"
 
