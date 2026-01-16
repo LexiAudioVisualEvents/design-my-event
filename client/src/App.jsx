@@ -21,12 +21,6 @@ const VENUES = {
   },
 };
 
-function TileGroup(...) { ... }
-
-export default function App() {
-  ...
-}
-
 function TileGroup({ title, items, value, onChange, subtitle }) {
   return (
     <section className="card">
