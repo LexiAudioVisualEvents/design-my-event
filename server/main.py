@@ -31,6 +31,8 @@ def resolve_model(mode: str) -> str:
 CACHE_TTL_SECONDS = int(os.getenv("CACHE_TTL_SECONDS", "86400"))
 RATE_LIMIT_SECONDS = float(os.getenv("RATE_LIMIT_SECONDS", "2.5"))
 
+DME_IMAGE_RES = os.getenv("DME_IMAGE_RES", "2K").strip().upper()  # "2K" default (unchanged)
+
 # --------------------------------------------------
 # In-memory cache + throttle
 # --------------------------------------------------
@@ -87,10 +89,10 @@ def throttle(request: Request):
 
 def cache_key(payload: GenerateRequest) -> str:
     raw = (
-        f"{REPLICATE_MODEL}|"
-        f"{payload.mood}|{payload.palette}|{payload.layout}|{payload.room or ''}|"
-        f"{payload.venue_image_url or ''}"
-    )
+    f"{REPLICATE_MODEL}|{DME_IMAGE_RES}|"
+    f"{payload.mood}|{payload.palette}|{payload.layout}|{payload.room or ''}|"
+    f"{payload.venue_image_url or ''}"
+)
     return hashlib.sha256(raw.lower().encode("utf-8")).hexdigest()
 
 def get_cached(key: str) -> Optional[dict]:
@@ -246,6 +248,11 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
         "Content-Type": "application/json",
     }
     payload = {"input": {"prompt": prompt}}
+    
+        # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
+    if model == "google/nano-banana-pro":
+        payload["input"]["resolution"] = "1K" if DME_IMAGE_RES == "1K" else "2K"
+
 
     if venue_image_url:
     
