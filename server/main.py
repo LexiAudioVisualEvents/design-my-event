@@ -248,8 +248,12 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
     payload = {"input": {"prompt": prompt}}
 
     if venue_image_url:
-        payload["input"]["image"] = venue_image_url
-        payload["input"]["prompt_strength"] = 0.6
+    
+        if model in ("google/nano-banana", "google/nano-banana-pro"):
+            payload["input"]["image_input"] = [venue_image_url]
+        else:
+            payload["input"]["image"] = venue_image_url
+            payload["input"]["prompt_strength"] = 0.6
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
