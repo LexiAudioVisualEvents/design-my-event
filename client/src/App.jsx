@@ -142,6 +142,40 @@ export default function App() {
 
       <main className="layout">
         <div className="left">
+		{/* Venue selection (NEW – goes ABOVE Mood) */}
+    <section className="card">
+      <div className="cardHeader">
+        <div>
+          <h2>Venue</h2>
+          <p className="muted">Choose the base reference space</p>
+        </div>
+        <span className="pill">Selected</span>
+      </div>
+
+      <div className="grid">
+        <button
+          type="button"
+          className={`tile ${venueId === "venue-1" ? "selected" : ""}`}
+          onClick={() => setVenueId("venue-1")}
+        >
+          <div className="tileTitle">Venue 1</div>
+          <div className="tileHint">
+            {venueId === "venue-1" ? "✓ Locked in" : "Select"}
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className={`tile ${venueId === "venue-2" ? "selected" : ""}`}
+          onClick={() => setVenueId("venue-2")}
+        >
+          <div className="tileTitle">Venue 2</div>
+          <div className="tileHint">
+            {venueId === "venue-2" ? "✓ Locked in" : "Select"}
+          </div>
+        </button>
+      </div>
+    </section>
           <TileGroup
             title="Mood"
             subtitle="Overall styling language"
