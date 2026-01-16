@@ -8,6 +8,25 @@ const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
 
 const API_BASE = import.meta.env.VITE_API_URL;
 
+const VENUES = {
+  "venue-1": {
+    label: "Venue 1",
+    heroUrl: "/venues/venue-1/hero.JPG",
+    referenceUrl: `${window.location.origin}/venues/venue-1/hero.JPG`,
+  },
+  "venue-2": {
+    label: "Venue 2",
+    heroUrl: "/venues/venue-2/hero.JPG",
+    referenceUrl: `${window.location.origin}/venues/venue-2/hero.JPG`,
+  },
+};
+
+function TileGroup(...) { ... }
+
+export default function App() {
+  ...
+}
+
 function TileGroup({ title, items, value, onChange, subtitle }) {
   return (
     <section className="card">
@@ -44,6 +63,9 @@ export default function App() {
   const [palette, setPalette] = useState("");
   const [layout, setLayout] = useState("");
   const [room, setRoom] = useState("");
+  
+  const [venueId, setVenueId] = useState("venue-1");
+  const venue = VENUES[venueId];
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null); // { image_data_url, prompt, cache_hit }
@@ -52,8 +74,7 @@ export default function App() {
 
   const ready = useMemo(() => mood && palette && layout, [mood, palette, layout]);
   
-	const VENUE_IMAGE = `${window.location.origin}/venues/venue-1/hero.JPG`;
-	const pickVenueImage = () => VENUE_IMAGE;
+  const pickVenueImage = () => venue.referenceUrl;
 
   async function generate() {
     setError("");
