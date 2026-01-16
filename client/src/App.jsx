@@ -120,39 +120,43 @@ export default function App() {
   return (
     <div className="page">
       <header className="topbar">
-        <div>
-          <div className="brand">Design My Event</div>
-          <div className="muted">Pick a Mood, Palette, and Layout — generate a venue-ready moodboard.</div>
-		</div>
-
-        <div className="roomWrap">
-    <label className="roomLabel">Venue</label>
-    <div style={{ display: "flex", gap: 8 }}>
-      <button
-        type="button"
-        className={`secondary ${venueId === "venue-1" ? "selected" : ""}`}
-        onClick={() => setVenueId("venue-1")}
-      >
-        Venue 1
-      </button>
-      <button
-        type="button"
-        className={`secondary ${venueId === "venue-2" ? "selected" : ""}`}
-        onClick={() => setVenueId("venue-2")}
-      >
-        Venue 2
-      </button>
+  <div>
+    <div className="brand">Design My Event</div>
+    <div className="muted">
+      Pick a Mood, Palette, and Layout — generate a venue-ready moodboard.
     </div>
   </div>
 
-  <div className="roomWrap">
-    <label className="roomLabel">Room (optional)</label>
-    <input
-      className="roomInput"
-      value={room}
-      onChange={(e) => setRoom(e.target.value)}
-      placeholder="e.g. Ballroom A / Terrace / Foyer"
-    />
+  <div className="topControls">
+    <div className="venueWrap">
+      <label className="roomLabel">Venue</label>
+      <div className="venueButtons">
+        <button
+          type="button"
+          className={`secondary ${venueId === "venue-1" ? "selected" : ""}`}
+          onClick={() => setVenueId("venue-1")}
+        >
+          Venue 1
+        </button>
+        <button
+          type="button"
+          className={`secondary ${venueId === "venue-2" ? "selected" : ""}`}
+          onClick={() => setVenueId("venue-2")}
+        >
+          Venue 2
+        </button>
+      </div>
+    </div>
+
+    <div className="roomWrap">
+      <label className="roomLabel">Room (optional)</label>
+      <input
+        className="roomInput"
+        value={room}
+        onChange={(e) => setRoom(e.target.value)}
+        placeholder="e.g. Ballroom A / Terrace / Foyer"
+      />
+    </div>
   </div>
 </header>
 

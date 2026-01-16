@@ -200,3 +200,21 @@ body{
 .historyMeta{display:flex; flex-direction:column}
 .historyLine{font-size:13px; font-weight:750}
 .footer{margin-top:16px}
+
+/* --- Topbar controls grouping (Venue + Room) --- */
+.topControls{
+  display:flex;
+  gap:16px;
+  align-items:flex-end;
+}
+
+.venueWrap{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.venueButtons{
+  display:flex;
+  gap:8px;
+}
