@@ -128,27 +128,7 @@ export default function App() {
   </div>
 
   <div className="topControls">
-    <div className="venueWrap">
-      <label className="roomLabel">Venue</label>
-      <div className="venueButtons">
-        <button
-          type="button"
-          className={`secondary ${venueId === "venue-1" ? "selected" : ""}`}
-          onClick={() => setVenueId("venue-1")}
-        >
-          Venue 1
-        </button>
-        <button
-          type="button"
-          className={`secondary ${venueId === "venue-2" ? "selected" : ""}`}
-          onClick={() => setVenueId("venue-2")}
-        >
-          Venue 2
-        </button>
-      </div>
-    </div>
-
-    <div className="roomWrap">
+	<div className="roomWrap">
       <label className="roomLabel">Room (optional)</label>
       <input
         className="roomInput"
