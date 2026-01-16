@@ -142,7 +142,30 @@ export default function App() {
 
       <main className="layout">
         <div className="left">
-          <TileGroup
+			<TileGroup
+			title="Venue"
+			subtitle="Choose the reference venue"
+	>
+			<div className="venueButtons">
+				{Object.entries(VENUES).map(([id, v]) => {
+					const selected = id === venueId;
+					return (
+						<button
+							key={id}
+							type="button"
+							className={`tile ${selected ? "selected" : ""}`}
+							onClick={() => setVenueId(id)}
+        >
+							{v.label}
+							</button>
+					);
+				})}
+			</div>
+			</TileGroup>
+		  
+		  
+		  
+		  <TileGroup
             title="Mood"
             subtitle="Overall styling language"
             items={MOODS}
