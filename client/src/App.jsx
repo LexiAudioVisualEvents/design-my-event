@@ -10,12 +10,12 @@ const API_BASE = import.meta.env.VITE_API_URL;
 
 const VENUES = {
   "venue-1": {
-    label: "Venue 1",
+    label: "Watersedge",
     heroUrl: "/venues/venue-1/hero.JPG",
     referenceUrl: `${window.location.origin}/venues/venue-1/hero.JPG`,
   },
   "venue-2": {
-    label: "Venue 2",
+    label: "12 Micron",
     heroUrl: "/venues/venue-2/hero.JPG",
     referenceUrl: `${window.location.origin}/venues/venue-2/hero.JPG`,
   },
@@ -158,7 +158,7 @@ export default function App() {
           className={`tile ${venueId === "venue-1" ? "selected" : ""}`}
           onClick={() => setVenueId("venue-1")}
         >
-          <div className="tileTitle">Venue 1</div>
+          <div className="tileTitle">{VENUES["venue-1"].label}</div>
           <div className="tileHint">
             {venueId === "venue-1" ? "✓ Locked in" : "Select"}
           </div>
@@ -169,7 +169,7 @@ export default function App() {
           className={`tile ${venueId === "venue-2" ? "selected" : ""}`}
           onClick={() => setVenueId("venue-2")}
         >
-          <div className="tileTitle">Venue 2</div>
+          <div className="tileTitle">{VENUES["venue-2"].label}</div>
           <div className="tileHint">
             {venueId === "venue-2" ? "✓ Locked in" : "Select"}
           </div>
