@@ -135,26 +135,65 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
 
     mood_map = {
         "Editorial": (
-            "Editorial event styling with a high-fashion magazine aesthetic. "
-            "Confident, intentional design with strong contrast, sculptural elements, "
-            "clean compositions, and curated focal points."
+            "EDITORIAL MOOD\n\n"
+            "Maintain the existing room architecture, layout, lighting, walls, flooring, ceiling, staging, and AV exactly as shown. Do not alter any fixed or structural elements.\n\n"
+            "Only update table linens, chair covers, and table centrepieces.\n\n"
+            "Style the event with a design-led, editorial aesthetic focused on intentional moments and strong visual composition. Every styling choice is deliberate, modern, and crafted to photograph beautifully.\n\n"
+            "Linens: Layered, high-quality fabrics with refined texture and structure — tailored tablecloths or runners in contemporary tones (soft neutrals, stone, charcoal, or muted colour accents). Crisp edges and controlled drape that enhance line and form.\n\n"
+            "Seat covers: Clean, architectural silhouettes in premium fabrics. Minimal, tailored, and sculptural — no bows, ties, or decorative excess. Colour and texture should support the overall composition, not compete with it.\n\n"
+            "Table centrepieces: Statement, sculptural floral installations designed as focal points. Florals feel modern and artistic rather than traditional, using intentional form, negative space, and controlled scale. Arrangements are visually striking but refined, never cluttered or oversized.\n\n"
+            "Table settings: Elevated and precise — refined tableware, layered glassware, and considered spacing that reinforces balance and symmetry.\n\n"
+            "Styling emphasises layered textures, contrast, and proportion, with a contemporary, gallery-like sensibility. The overall mood is confident, modern, and editorial, created for high-impact event photography.\n\n"
+            "Ultra-high resolution, photorealistic materials"
         ),
         "Luxe": (
-            "Luxury event styling. Rich layered textures, premium fabrics, elegant florals, "
-            "polished finishes, refined table settings, and a sense of exclusivity."
+            "LUXE MOOD\n\n"
+            "Maintain the existing room architecture, lighting, layout, walls, flooring, ceiling, staging, and AV exactly as shown. Do not alter any structural or spatial elements.\n\n"
+            "Only update table linens, chair covers, and table centrepieces.\n\n"
+            "Style the event with a luxury aesthetic that embodies refined glamour, opulence, and comfort. The atmosphere feels lavish yet liveable — sophisticated, inviting, and timeless rather than showy.\n\n"
+            "Use a rich but restrained colour palette: soft, light metallic tones with warm undertones.\n\n"
+            "Linens: Tailored, high-quality fabrics with beautiful drape — silk-blend or premium textured linens in champagne, light metallic tones with warm undertones. Conveys elegance, subtle luxury, and a refined glow without overpowering the space.\n\n"
+            "Seat covers: Elegant and minimal, using soft upholstery, velvet, or refined fabric wraps in neutral or charcoal tones. Clean lines, subtle structure, no bows or decorative ties.\n\n"
+            "Table centrepieces: Sculptural. Elegant high floral arrangements with controlled form, subtle height variation, and restrained colour. Incorporate premium materials such as brushed brass vessels, smoked glass, or stone accents. No oversized, busy, or overly organic compositions.\n\n"
+            "Styling balances classic elegance with modern simplicity, with subtle Art Deco–inspired geometry (soft curves, symmetry, clean lines) expressed through proportions and finishes, not overt motifs.\n\n"
+            "Ultra-high resolution, photorealistic materials and lighting. No people, no branding, no text. The overall mood is confident, polished, and quietly indulgent, suitable for premium event marketing visuals."
         ),
         "Minimal": (
-            "Minimalist event styling. Clean lines, restrained color use, negative space, "
-            "precise placement, and calm sophistication."
+            "MINIMAL MOOD\n\n"
+            "Maintain the existing room architecture, layout, lighting, walls, flooring, ceiling, staging, and AV exactly as shown. Do not modify any fixed or structural elements.\n\n"
+            "Only update table linens, chair covers, and table centrepieces.\n\n"
+            "Style the event with a clean, contemporary aesthetic that prioritises simplicity, restraint, and calm. The overall mood is modern, architectural, and grounded.\n\n"
+            "Use a limited, cool-toned colour palette inspired by natural stone — muted greys, soft concrete, pale ash, and subtle charcoal accents only. Avoid warm tones or colour contrast.\n\n"
+            "Linens: Smooth, high-quality table linens in cool grey or stone tones with a clean, tailored drape. No runners, layering, or decorative edging. Surfaces should feel crisp and architectural.\n\n"
+            "Seat covers: Minimal and structured, with clean lines and precise fit. Upholstered or fabric finishes in matching cool grey hues. No bows, ties, pleats, or embellishments.\n\n"
+            "Table centrepieces: Restrained, impactful and architectural in form. Simple sculptural or minimal floral elements with controlled shape and minimal colour, reinforcing symmetry and negative space.\n\n"
+            "Styling emphasises clean lines, simple geometry, and uncluttered layouts. Every element is intentional and functional — nothing decorative for decoration’s sake.\n\n"
+            "Ultra-high resolution, photorealistic materials and lighting."
         ),
         "Mediterranean": (
-            "Mediterranean-inspired event styling. Sun-warmed tones, natural textures, "
-            "relaxed elegance, organic materials, and soft ambient lighting."
+            "MEDITERRANEAN MOOD\n\n"
+            "Maintain the existing room architecture, layout, lighting, walls, flooring, ceiling, staging, and AV exactly as shown. Do not alter any fixed or structural elements.\n\n"
+            "Only update table linens, chair covers, and table centrepieces.\n\n"
+            "Style the event with a warm, relaxed, sun-washed aesthetic inspired by coastal Southern Europe. The mood feels grounded, social, and timeless — effortless rather than styled.\n\n"
+            "Use a warm, earthy colour palette inspired by natural clay, sunbaked landscapes, and subtle azure Mediterranean water tones. Colours should feel organic and softly weathered, never saturated or bold.\n\n"
+            "Linens: Textured, natural-fiber table linens (linen or linen-blend) in warm neutrals, clay, sand, or soft sun-bleached tones. Allow gentle creasing and relaxed drape for an authentic, lived-in feel.\n\n"
+            "Seat covers: Simple, unfussy, and tactile. Use natural fabrics in warm neutral or earthy hues. Clean silhouettes with no bows, ties, or decorative treatments.\n\n"
+            "Table centrepieces: Organic and impactful. Loose floral or greenery arrangements inspired by Mediterranean flora, with natural movement and imperfect form. Use ceramic, stone, or lightly textured vessels in earthy finishes. Nothing overly structured.\n\n"
+            "Styling prioritises natural texture, warmth, and restraint, creating an inviting atmosphere designed for conversation and long shared moments.\n\n"
+            "Ultra-high resolution, photorealistic materials and lighting."
         ),
         "Manhattan": (
-            "Modern Manhattan-style event design. Architectural lighting, sharp lines, "
-            "urban elegance, polished surfaces, and contemporary furniture."
-        )
+            "MANHATTAN MOOD\n\n"
+            "Maintain the existing room architecture, layout, lighting, walls, flooring, ceiling, staging, and AV exactly as shown. Do not alter any fixed or structural elements.\n\n"
+            "Only update table linens, chair covers, and table centrepieces.\n\n"
+            "Style the event with a Manhattan-inspired luxury aesthetic — bold, sleek, and urban, drawing from New York luxury hotel and penthouse interiors. The mood is confident, high-energy, and polished.\n\n"
+            "Use a dark, sophisticated colour palette: deep charcoal, black, rich espresso, and graphite, accented with controlled metallic highlights in brushed brass, champagne gold, or polished chrome.\n\n"
+            "Linens: Tailored, structured table linens in dark tones with a crisp, architectural drape. Fabrics should feel premium and refined, reinforcing clean lines and sharp silhouettes.\n\n"
+            "Seat covers: Minimal and sharply tailored, with precise fit and strong form. Upholstered or fabric finishes in black, charcoal, or deep neutral tones. No bows, ties, or decorative elements.\n\n"
+            "Table centrepieces: Architectural and vertical in presence. Tall, sculptural centrepieces with strong lines and intentional symmetry, incorporating metallic vessels, smoked glass, or structured floral forms. Designs should feel bold and graphic, not soft or romantic.\n\n"
+            "Styling emphasises structure, contrast, and geometry, creating a luxe, urban atmosphere with a confident visual rhythm.\n\n"
+            "Ultra-high resolution, photorealistic materials."
+        ),
     }
 
     palette_map = {
