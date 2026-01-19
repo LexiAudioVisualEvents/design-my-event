@@ -56,8 +56,7 @@ export default function App() {
   const [mood, setMood] = useState("");
   const [palette, setPalette] = useState("");
   const [layout, setLayout] = useState("");
-  const [room, setRoom] = useState("");
-  
+    
   const [venueId, setVenueId] = useState("venue-1");
   const venue = VENUES[venueId];
 
@@ -82,7 +81,6 @@ export default function App() {
 		mood,
 		palette,
 		layout,
-		room: room.trim() || null,
 		venue_image_url: pickVenueImage(),
 }),
       });
@@ -126,18 +124,7 @@ export default function App() {
       Pick a Mood, Palette, and Layout — generate a venue-ready moodboard.
     </div>
   </div>
-
-  <div className="topControls">
-	<div className="roomWrap">
-      <label className="roomLabel">Room (optional)</label>
-      <input
-        className="roomInput"
-        value={room}
-        onChange={(e) => setRoom(e.target.value)}
-        placeholder="e.g. Ballroom A / Terrace / Foyer"
-      />
-    </div>
-  </div>
+  
 </header>
 
       <main className="layout">
@@ -270,7 +257,6 @@ export default function App() {
                     <img className="previewImg" src={result.image_data_url} alt="Generated moodboard" />
                     <div className="caption">
                       <div className="capStrong">{mood} • {palette} • {layout}</div>
-                      {room ? <div className="muted">Room: {room}</div> : null}
                     </div>
                   </motion.div>
                 ) : (
