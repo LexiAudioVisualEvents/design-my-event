@@ -38,21 +38,12 @@ body{
 .roomInput:focus{border-color: rgba(37,99,235,.4); box-shadow: 0 0 0 4px rgba(37,99,235,.12);}
 
 .layout{
-	display:grid;
-	grid-template-columns: minmax(480px, 1fr) 520px;
+	display:flex;
+	flex-direction:column;
 	gap:18px;
-	align-items:start;
 }
 .layout > * {
   min-width: 0;
-}
-@media (max-width: 900px){
-	.layout{
-		grid-template-columns:1fr;
-	}
-	.roomWrap{
-		min-width: 220px;
-	} 
 }
 
 .card{
