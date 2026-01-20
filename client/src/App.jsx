@@ -29,8 +29,7 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
           <h2>{title}</h2>
           {subtitle ? <p className="muted">{subtitle}</p> : null}
         </div>
-        <span className="pill">{value ? "Selected" : "Pick one"}</span>
-      </div>
+	</div>
 
       <div className="grid">
         {items.map((item) => {
@@ -136,8 +135,7 @@ export default function App() {
           <h2>Venue</h2>
           <p className="muted">Choose the base reference space</p>
         </div>
-        <span className="pill">Selected</span>
-      </div>
+	</div>
 
       <div className="grid">
         <button
