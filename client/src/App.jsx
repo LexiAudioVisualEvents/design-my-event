@@ -4,7 +4,8 @@ import "./styles.css";
 
 const MOODS = ["Editorial", "Luxe", "Minimal", "Mediterranean", "Manhattan"];
 const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
-
+const AV_EQUIPMENT = ["IN", "OUT"];
+const UPLIGHTING_COLOURS = ["Col1", "Col2", "Col3", "Col4"];
 const API_BASE = import.meta.env.VITE_API_URL;
 
 const VENUES = {
@@ -53,6 +54,8 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
 export default function App() {
   const [mood, setMood] = useState("");
   const [layout, setLayout] = useState("");
+  const [avEquipment, setAvEquipment] = useState("");
+  const [uplightingColour, setUplightingColour] = useState("");
 
   const [venueId, setVenueId] = useState("venue-1");
   const venue = VENUES[venueId];
@@ -148,22 +151,37 @@ export default function App() {
             </div>
           </section>
 
-          <TileGroup
-            title="Mood"
-            subtitle="Overall styling language"
-            items={MOODS}
-            value={mood}
-            onChange={setMood}
-          />
+		<TileGroup
+			title="Mood"
+			subtitle="Overall styling language"
+			items={MOODS}
+			value={mood}
+			onChange={setMood}
+		/>
 
-          <TileGroup
-            title="Layout"
-            subtitle="How guests experience the room"
-            items={LAYOUTS}
-            value={layout}
-            onChange={setLayout}
-          />
+		<TileGroup
+			title="Layout"
+			subtitle="How guests experience the room"
+			items={LAYOUTS}
+			value={layout}
+			onChange={setLayout}
+		/>
+		<TileGroup
+			title="Audio Visual Equipment"
+			subtitle="Is AV in the room?"
+			items={AV_EQUIPMENT}
+			value={avEquipment}
+			onChange={setAvEquipment}
+		/>
 
+		<TileGroup
+			title="Uplighting Colour"
+			subtitle="Select an uplighting colour"
+			items={UPLIGHTING_COLOURS}
+			value={uplightingColour}
+			onChange={setUplightingColour}
+		/>
+		
           <div className="ctaRow">
             <button className="primary" disabled={!ready || loading} onClick={generate}>
               {loading ? "Designing…" : "Generate Moodboard"}
