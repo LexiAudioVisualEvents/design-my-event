@@ -110,6 +110,47 @@ def set_cached(key: str, value: dict):
     _cache[key] = (time.time(), value)
 
 # --------------------------------------------------
+# Designer negative prompt reference (NOT ACTIVE YET)
+# --------------------------------------------------
+
+DESIGNER_NEGATIVE_PROMPTS = {
+    "global": """
+Do not change the base image
+Do not alter room dimensions, walls, ceiling, floor, finishes, or architectural details
+Do not change camera position, angle, framing, zoom, or perspective
+No missing attendees, empty seats, or sparse areas
+No standing attendees, no people facing or looking at the camera
+No casual, sloppy, or informal clothing
+No bows, chair ties, sashes, or decorative excess
+No traditional, cluttered, small scale, or floral-heavy centrepieces
+No mismatched table styling or inconsistent centrepieces
+No curtains, drapes, blinds, frosting, decals, props, or window obstructions
+No changes to exterior view, skyline, water, buildings, weather, or time of day
+No additional audio visual equipment
+No alternative stage layout, size, colour, or position
+No additional lecterns or presenters
+No change to LED wall size, placement, colour, or displayed text
+No dramatic lighting effects, no coloured spotlights, no haze or fog
+No flat lighting or high contrast stylisation
+No low resolution, illustrative, stylised, cartoon, or CGI appearance
+In no circumstances is the bottom row of the LED wall ever to be lifted above stage level. The LED wall in every instance must start at stage level.
+""".strip(),
+
+    "layout": {
+        "Theatre": """
+No tables
+No centrepieces
+No floral arrangements
+No vases
+No candles
+No tabletop styling elements
+No decorative plants
+No uplighting applied to plants
+""".strip()
+    }
+}
+
+# --------------------------------------------------
 # Prompt builder
 # --------------------------------------------------
 def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
