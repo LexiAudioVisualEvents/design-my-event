@@ -311,35 +311,14 @@ def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
     ),
 }
 
-
-    lighting_plan = (
-        "Lighting design is intentional and dominant. "
-        "Use controlled event lighting rather than generic daylight. "
-        "Define the mood using uplighting, warm accent lighting, "
-        "and directional highlights while preserving realistic exposure."
-    )
-
-    room_line = (
-        f"This design is specifically styled for the room named: {room}."
-        if room else
-        "This design is styled for a modern event venue interior."
-    )
-
-    negative_constraints = (
-        "Do not alter architecture. No new walls, windows, doors, or ceiling features. "
-        "No fisheye or wide-angle distortion. No empty or unfinished space. "
-        "Avoid bland or flat lighting. No signage text."
-    )
+  
 
     return "\n".join([
         venue_lock,
         allowed_changes,
         composition,
-        lighting_plan,
         mood_map.get(mood, mood),
-        layout_map.get(layout, layout),
-        room_line,
-        negative_constraints
+        layout_map.get(layout, layout)
     ])
 
 # --------------------------------------------------
