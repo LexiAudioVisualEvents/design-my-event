@@ -360,29 +360,30 @@ def replicate_generate_image_url(
         raise RuntimeError("Resolved model must be 'owner/name'")
 
     owner, name = model.split("/", 1)
-
     create_url = f"https://api.replicate.com/v1/models/{owner}/{name}/predictions"
 
     headers = {
         "Authorization": f"Token {REPLICATE_API_TOKEN}",
         "Content-Type": "application/json",
     }
+
     payload = {
-    "input": {
-        "prompt": prompt
+        "input": {
+            "prompt": prompt
+        }
     }
-}
 
-# Only nano-banana models accept negative_prompt
-if model in ("google/nano-banana", "google/nano-banana-pro"):
-    negative_prompt = build_designer_negative_prompt(layout=layout)
-    if negative_prompt:
-        payload["input"]["negative_prompt"] = negative_prompt
+    # Only nano-banana models accept negative_prompt
+    if model in ("google/nano-banana", "google/nano-banana-pro"):
+        negative_prompt = build_designer_negative_prompt(layout=layout)
+        if negative_prompt:
+            payload["input"]["negative_prompt"] = negative_prompt
 
-    # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
-    if model == "google/nano-banana-pro":
-        payload["input"]["resolution"] = "1K" if DME_IMAGE_RES == "1K" else "2K"
+        # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
+        if model == "google/nano-banana-pro":
+            payload["input"]["resolution"] = "1K" if DME_IMAGE_RES == "1K" else "2K"
 
+    # Reference image handling
     if venue_image_url:
         if model in ("google/nano-banana", "google/nano-banana-pro"):
             payload["input"]["image_input"] = [venue_image_url]
@@ -418,7 +419,8 @@ if model in ("google/nano-banana", "google/nano-banana-pro"):
 
             time.sleep(0.75)
 
-        raise RuntimeError("Replicate request timed out")
+    raise RuntimeError("Replicate request timed out")
+
 
 def download_image_as_data_url(url: str) -> str:
     with httpx.Client(timeout=120.0, follow_redirects=True) as client:
