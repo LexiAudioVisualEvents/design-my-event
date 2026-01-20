@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import "./styles.css";
 
 const MOODS = ["Editorial", "Luxe", "Minimal", "Mediterranean", "Manhattan"];
-const PALETTES = ["Terracotta", "Champagne", "Slate", "Coastal Neutral"];
 const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
 
 const API_BASE = import.meta.env.VITE_API_URL;
@@ -29,7 +28,7 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
           <h2>{title}</h2>
           {subtitle ? <p className="muted">{subtitle}</p> : null}
         </div>
-	</div>
+      </div>
 
       <div className="grid">
         {items.map((item) => {
@@ -53,19 +52,18 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
 
 export default function App() {
   const [mood, setMood] = useState("");
-  const [palette, setPalette] = useState("");
   const [layout, setLayout] = useState("");
-    
+
   const [venueId, setVenueId] = useState("venue-1");
   const venue = VENUES[venueId];
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null); // { image_data_url, prompt, cache_hit }
   const [error, setError] = useState("");
-  const [history, setHistory] = useState([]); // array of { mood,palette,layout, image_data_url }
+  const [history, setHistory] = useState([]); // array of { mood,layout, image_data_url }
 
-  const ready = useMemo(() => mood && palette && layout, [mood, palette, layout]);
-  
+  const ready = useMemo(() => mood && layout, [mood, layout]);
+
   const pickVenueImage = () => venue.referenceUrl;
 
   async function generate() {
@@ -77,11 +75,10 @@ export default function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-		mood,
-		palette,
-		layout,
-		venue_image_url: pickVenueImage(),
-}),
+          mood,
+          layout,
+          venue_image_url: pickVenueImage(),
+        }),
       });
 
       if (!res.ok) {
@@ -93,10 +90,7 @@ export default function App() {
       setResult(data);
 
       setHistory((prev) => {
-        const next = [
-          { mood, palette, layout, image_data_url: data.image_data_url },
-          ...prev,
-        ];
+        const next = [{ mood, layout, image_data_url: data.image_data_url }, ...prev];
         return next.slice(0, 6);
       });
     } catch (e) {
@@ -108,7 +102,6 @@ export default function App() {
 
   function loadFromHistory(h) {
     setMood(h.mood);
-    setPalette(h.palette);
     setLayout(h.layout);
     setResult({ image_data_url: h.image_data_url, prompt: "", cache_hit: true });
     setError("");
@@ -117,50 +110,44 @@ export default function App() {
   return (
     <div className="page">
       <header className="topbar">
-  <div>
-    <div className="brand">Design My Event</div>
-    <div className="muted">
-      Pick a Mood, Palette, and Layout — generate a venue-ready moodboard.
-    </div>
-  </div>
-  
-</header>
+        <div>
+          <div className="brand">Design My Event</div>
+          <div className="muted">Pick a Mood and Layout — generate a venue-ready moodboard.</div>
+        </div>
+      </header>
 
       <main className="layout">
         <div className="left">
-		{/* Venue selection (NEW – goes ABOVE Mood) */}
-    <section className="card">
-      <div className="cardHeader">
-        <div>
-          <h2>Venue</h2>
-          <p className="muted">Choose the base reference space</p>
-        </div>
-	</div>
+          {/* Venue selection (goes ABOVE Mood) */}
+          <section className="card">
+            <div className="cardHeader">
+              <div>
+                <h2>Venue</h2>
+                <p className="muted">Choose the base reference space</p>
+              </div>
+            </div>
 
-      <div className="grid">
-        <button
-          type="button"
-          className={`tile ${venueId === "venue-1" ? "selected" : ""}`}
-          onClick={() => setVenueId("venue-1")}
-        >
-          <div className="tileTitle">{VENUES["venue-1"].label}</div>
-          <div className="tileHint">
-            {venueId === "venue-1" ? "✓ Locked in" : "Select"}
-          </div>
-        </button>
+            <div className="grid">
+              <button
+                type="button"
+                className={`tile ${venueId === "venue-1" ? "selected" : ""}`}
+                onClick={() => setVenueId("venue-1")}
+              >
+                <div className="tileTitle">{VENUES["venue-1"].label}</div>
+                <div className="tileHint">{venueId === "venue-1" ? "✓ Locked in" : "Select"}</div>
+              </button>
 
-        <button
-          type="button"
-          className={`tile ${venueId === "venue-2" ? "selected" : ""}`}
-          onClick={() => setVenueId("venue-2")}
-        >
-          <div className="tileTitle">{VENUES["venue-2"].label}</div>
-          <div className="tileHint">
-            {venueId === "venue-2" ? "✓ Locked in" : "Select"}
-          </div>
-        </button>
-      </div>
-    </section>
+              <button
+                type="button"
+                className={`tile ${venueId === "venue-2" ? "selected" : ""}`}
+                onClick={() => setVenueId("venue-2")}
+              >
+                <div className="tileTitle">{VENUES["venue-2"].label}</div>
+                <div className="tileHint">{venueId === "venue-2" ? "✓ Locked in" : "Select"}</div>
+              </button>
+            </div>
+          </section>
+
           <TileGroup
             title="Mood"
             subtitle="Overall styling language"
@@ -168,13 +155,7 @@ export default function App() {
             value={mood}
             onChange={setMood}
           />
-          <TileGroup
-            title="Palette"
-            subtitle="Color + material cues"
-            items={PALETTES}
-            value={palette}
-            onChange={setPalette}
-          />
+
           <TileGroup
             title="Layout"
             subtitle="How guests experience the room"
@@ -212,7 +193,7 @@ export default function App() {
                     <img src={h.image_data_url} alt="history" />
                     <div className="historyMeta">
                       <div className="historyLine">{h.mood}</div>
-                      <div className="historyLine muted">{h.palette} • {h.layout}</div>
+                      <div className="historyLine muted">{h.layout}</div>
                     </div>
                   </button>
                 ))}
@@ -254,7 +235,9 @@ export default function App() {
                   >
                     <img className="previewImg" src={result.image_data_url} alt="Generated moodboard" />
                     <div className="caption">
-                      <div className="capStrong">{mood} • {palette} • {layout}</div>
+                      <div className="capStrong">
+                        {mood} • {layout}
+                      </div>
                     </div>
                   </motion.div>
                 ) : (

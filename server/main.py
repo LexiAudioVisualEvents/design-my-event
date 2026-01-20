@@ -57,11 +57,10 @@ app.add_middleware(
 # --------------------------------------------------
 class GenerateRequest(BaseModel):
     mood: str = Field(..., min_length=2, max_length=40)
-    palette: str = Field(..., min_length=2, max_length=40)
     layout: str = Field(..., min_length=2, max_length=40)
     room: Optional[str] = Field(None, max_length=80)
     venue_image_url: Optional[str] = None
-    
+
 class GenerateResponse(BaseModel):
     image_data_url: str
     prompt: str
@@ -89,10 +88,10 @@ def throttle(request: Request):
 
 def cache_key(payload: GenerateRequest) -> str:
     raw = (
-    f"{REPLICATE_MODEL}|{DME_IMAGE_RES}|"
-    f"{payload.mood}|{payload.palette}|{payload.layout}|{payload.room or ''}|"
-    f"{payload.venue_image_url or ''}"
-)
+        f"{REPLICATE_MODEL}|{DME_IMAGE_RES}|"
+        f"{payload.mood}|{payload.layout}|{payload.room or ''}|"
+        f"{payload.venue_image_url or ''}"
+    )
     return hashlib.sha256(raw.lower().encode("utf-8")).hexdigest()
 
 def get_cached(key: str) -> Optional[dict]:
@@ -113,7 +112,7 @@ def set_cached(key: str, value: dict):
 # --------------------------------------------------
 # Prompt builder
 # --------------------------------------------------
-def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> str:
+def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
     venue_lock = (
         "HIGHEST PRIORITY: Keep the exact architecture and the exact camera/view.\n"
         "Do not change walls, ceiling height, columns, doors, windows, floor edges.\n"
@@ -123,7 +122,7 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
     allowed_changes = (
         "ALLOWED AND ENCOURAGED:\n"
         "Apply strong event lighting, decor, furniture, florals, linens, and props.\n"
-        "Make the lighting and palette the dominant visual transformation.\n"
+        "Make the lighting and styling the dominant visual transformation.\n"
         "The architecture and camera must remain unchanged.\n"
     )
 
@@ -151,7 +150,6 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
             "Maintain the existing room architecture, lighting, layout, walls, flooring, ceiling, staging, and AV exactly as shown. Do not alter any structural or spatial elements.\n\n"
             "Only update table linens, chair covers, and table centrepieces.\n\n"
             "Style the event with a luxury aesthetic that embodies refined glamour, opulence, and comfort. The atmosphere feels lavish yet liveable — sophisticated, inviting, and timeless rather than showy.\n\n"
-            "Use a rich but restrained colour palette: soft, light metallic tones with warm undertones.\n\n"
             "Linens: Tailored, high-quality fabrics with beautiful drape — silk-blend or premium textured linens in champagne, light metallic tones with warm undertones. Conveys elegance, subtle luxury, and a refined glow without overpowering the space.\n\n"
             "Seat covers: Elegant and minimal, using soft upholstery, velvet, or refined fabric wraps in neutral or charcoal tones. Clean lines, subtle structure, no bows or decorative ties.\n\n"
             "Table centrepieces: Sculptural. Elegant high floral arrangements with controlled form, subtle height variation, and restrained colour. Incorporate premium materials such as brushed brass vessels, smoked glass, or stone accents. No oversized, busy, or overly organic compositions.\n\n"
@@ -164,10 +162,6 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
             "Only update table linens, chair covers, and table centrepieces.\n\n"
             "Style the event with a clean, contemporary aesthetic that prioritises simplicity, restraint, and calm. The overall mood is modern, architectural, and grounded.\n\n"
             "Use a limited, cool-toned colour palette inspired by natural stone — muted greys, soft concrete, pale ash, and subtle charcoal accents only. Avoid warm tones or colour contrast.\n\n"
-            "Linens: Smooth, high-quality table linens in cool grey or stone tones with a clean, tailored drape. No runners, layering, or decorative edging. Surfaces should feel crisp and architectural.\n\n"
-            "Seat covers: Minimal and structured, with clean lines and precise fit. Upholstered or fabric finishes in matching cool grey hues. No bows, ties, pleats, or embellishments.\n\n"
-            "Table centrepieces: Restrained, impactful and architectural in form. Simple sculptural or minimal floral elements with controlled shape and minimal colour, reinforcing symmetry and negative space.\n\n"
-            "Styling emphasises clean lines, simple geometry, and uncluttered layouts. Every element is intentional and functional — nothing decorative for decoration’s sake.\n\n"
             "Ultra-high resolution, photorealistic materials and lighting."
         ),
         "Mediterranean": (
@@ -176,10 +170,6 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
             "Only update table linens, chair covers, and table centrepieces.\n\n"
             "Style the event with a warm, relaxed, sun-washed aesthetic inspired by coastal Southern Europe. The mood feels grounded, social, and timeless — effortless rather than styled.\n\n"
             "Use a warm, earthy colour palette inspired by natural clay, sunbaked landscapes, and subtle azure Mediterranean water tones. Colours should feel organic and softly weathered, never saturated or bold.\n\n"
-            "Linens: Textured, natural-fiber table linens (linen or linen-blend) in warm neutrals, clay, sand, or soft sun-bleached tones. Allow gentle creasing and relaxed drape for an authentic, lived-in feel.\n\n"
-            "Seat covers: Simple, unfussy, and tactile. Use natural fabrics in warm neutral or earthy hues. Clean silhouettes with no bows, ties, or decorative treatments.\n\n"
-            "Table centrepieces: Organic and impactful. Loose floral or greenery arrangements inspired by Mediterranean flora, with natural movement and imperfect form. Use ceramic, stone, or lightly textured vessels in earthy finishes. Nothing overly structured.\n\n"
-            "Styling prioritises natural texture, warmth, and restraint, creating an inviting atmosphere designed for conversation and long shared moments.\n\n"
             "Ultra-high resolution, photorealistic materials and lighting."
         ),
         "Manhattan": (
@@ -188,32 +178,8 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
             "Only update table linens, chair covers, and table centrepieces.\n\n"
             "Style the event with a Manhattan-inspired luxury aesthetic — bold, sleek, and urban, drawing from New York luxury hotel and penthouse interiors. The mood is confident, high-energy, and polished.\n\n"
             "Use a dark, sophisticated colour palette: deep charcoal, black, rich espresso, and graphite, accented with controlled metallic highlights in brushed brass, champagne gold, or polished chrome.\n\n"
-            "Linens: Tailored, structured table linens in dark tones with a crisp, architectural drape. Fabrics should feel premium and refined, reinforcing clean lines and sharp silhouettes.\n\n"
-            "Seat covers: Minimal and sharply tailored, with precise fit and strong form. Upholstered or fabric finishes in black, charcoal, or deep neutral tones. No bows, ties, or decorative elements.\n\n"
-            "Table centrepieces: Architectural and vertical in presence. Tall, sculptural centrepieces with strong lines and intentional symmetry, incorporating metallic vessels, smoked glass, or structured floral forms. Designs should feel bold and graphic, not soft or romantic.\n\n"
-            "Styling emphasises structure, contrast, and geometry, creating a luxe, urban atmosphere with a confident visual rhythm.\n\n"
             "Ultra-high resolution, photorealistic materials."
         ),
-    }
-
-    palette_map = {
-        "Terracotta": (
-            "Color palette dominated by terracotta, warm sand, and clay tones, "
-            "with subtle brass or bronze accents. Apply these colors through lighting, "
-            "table linens, florals, and decor."
-        ),
-        "Champagne": (
-            "Champagne, ivory, and warm white palette with soft gold accents. "
-            "Use this palette consistently across lighting, tableware, linens, and decor."
-        ),
-        "Slate": (
-            "Slate grey and cool stone palette with airy contrast. "
-            "Cool-toned lighting with crisp highlights and controlled shadows."
-        ),
-        "Coastal Neutral": (
-            "Coastal neutral palette: driftwood, sand, linen white, and warm greys. "
-            "Soft diffused lighting and natural materials."
-        )
     }
 
     layout_map = {
@@ -260,11 +226,11 @@ def build_prompt(mood: str, palette: str, layout: str, room: Optional[str]) -> s
         composition,
         lighting_plan,
         mood_map.get(mood, mood),
-        palette_map.get(palette, palette),
         layout_map.get(layout, layout),
         room_line,
         negative_constraints
     ])
+
 # --------------------------------------------------
 # Replicate integration (raw HTTP)
 # --------------------------------------------------
@@ -287,14 +253,12 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
         "Content-Type": "application/json",
     }
     payload = {"input": {"prompt": prompt}}
-    
-        # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
+
+    # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
     if model == "google/nano-banana-pro":
         payload["input"]["resolution"] = "1K" if DME_IMAGE_RES == "1K" else "2K"
 
-
     if venue_image_url:
-    
         if model in ("google/nano-banana", "google/nano-banana-pro"):
             payload["input"]["image_input"] = [venue_image_url]
         else:
@@ -331,9 +295,6 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
 
         raise RuntimeError("Replicate request timed out")
 
-
-
-
 def download_image_as_data_url(url: str) -> str:
     with httpx.Client(timeout=120.0, follow_redirects=True) as client:
         r = client.get(url)
@@ -358,7 +319,7 @@ def generate(req: GenerateRequest, request: Request):
     if cached:
         return GenerateResponse(**cached, cache_hit=True)
 
-    prompt = build_prompt(req.mood, req.palette, req.layout, req.room)
+    prompt = build_prompt(req.mood, req.layout, req.room)
 
     try:
         image_url = replicate_generate_image_url(prompt, req.venue_image_url)
