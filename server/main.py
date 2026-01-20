@@ -151,6 +151,42 @@ No uplighting applied to plants
 }
 
 # --------------------------------------------------
+# Negative prompt builder (NOT WIRED YET)
+# --------------------------------------------------
+
+def _np_split_lines(text: str) -> list[str]:
+    if not text:
+        return []
+    return [ln.strip() for ln in text.splitlines() if ln.strip()]
+
+
+def _np_dedupe_keep_order(items: list[str]) -> list[str]:
+    seen = set()
+    out = []
+    for it in items:
+        if it not in seen:
+            seen.add(it)
+            out.append(it)
+    return out
+
+
+def build_designer_negative_prompt(*, layout: str | None = None) -> str:
+    """
+    Builds a single negative prompt string from DESIGNER_NEGATIVE_PROMPTS.
+    Currently supports:
+      - global
+      - layout-specific (e.g. Theatre)
+    """
+    parts: list[str] = []
+    parts += _np_split_lines(DESIGNER_NEGATIVE_PROMPTS.get("global", ""))
+
+    if layout:
+        parts += _np_split_lines(DESIGNER_NEGATIVE_PROMPTS.get("layout", {}).get(layout, ""))
+
+    return "\n".join(_np_dedupe_keep_order(parts)).strip()
+
+
+# --------------------------------------------------
 # Prompt builder
 # --------------------------------------------------
 def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
