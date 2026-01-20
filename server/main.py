@@ -345,7 +345,11 @@ def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
 # --------------------------------------------------
 # Replicate integration (raw HTTP)
 # --------------------------------------------------
-def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = None) -> str:
+def replicate_generate_image_url(
+    prompt: str,
+    venue_image_url: Optional[str] = None,
+    layout: Optional[str] = None,
+) -> str:
     if not REPLICATE_API_TOKEN:
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
 
@@ -363,7 +367,17 @@ def replicate_generate_image_url(prompt: str, venue_image_url: Optional[str] = N
         "Authorization": f"Token {REPLICATE_API_TOKEN}",
         "Content-Type": "application/json",
     }
-    payload = {"input": {"prompt": prompt}}
+    payload = {
+    "input": {
+        "prompt": prompt
+    }
+}
+
+# Only nano-banana models accept negative_prompt
+if model in ("google/nano-banana", "google/nano-banana-pro"):
+    negative_prompt = build_designer_negative_prompt(layout=layout)
+    if negative_prompt:
+        payload["input"]["negative_prompt"] = negative_prompt
 
     # Resolution toggle (only supported by google/nano-banana-pro on Replicate)
     if model == "google/nano-banana-pro":
@@ -433,7 +447,11 @@ def generate(req: GenerateRequest, request: Request):
     prompt = build_prompt(req.mood, req.layout, req.room)
 
     try:
-        image_url = replicate_generate_image_url(prompt, req.venue_image_url)
+        image_url = replicate_generate_image_url(
+            prompt,
+            req.venue_image_url,
+            req.layout
+)
         data_url = download_image_as_data_url(image_url)
 
         resp = {
