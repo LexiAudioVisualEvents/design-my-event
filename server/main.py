@@ -60,6 +60,8 @@ class GenerateRequest(BaseModel):
     layout: str = Field(..., min_length=2, max_length=40)
     room: Optional[str] = Field(None, max_length=80)
     venue_image_url: Optional[str] = None
+    av_equipment: Optional[str] = Field(None, max_length=10)
+    uplighting_colour: Optional[str] = Field(None, max_length=20)
 
 class GenerateResponse(BaseModel):
     image_data_url: str
