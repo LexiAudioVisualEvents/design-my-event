@@ -189,7 +189,7 @@ def build_designer_negative_prompt(*, layout: str | None = None) -> str:
     return "\n".join(_np_dedupe_keep_order(parts)).strip()
 
 AV_EQUIPMENT_PROMPTS = {
-"IN": """
+    "IN": """
 STAGE AND PRESENTER
 
 At the far end of the room, centred in the image, is a clean and minimal black stage.
