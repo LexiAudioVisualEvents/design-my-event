@@ -82,6 +82,7 @@ export default function App() {
           layout,
           venue_image_url: pickVenueImage(),
 		  av_equipment: avEquipment,
+		  uplighting_colour: uplightingColour,
         }),
       });
 
