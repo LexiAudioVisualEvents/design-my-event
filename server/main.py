@@ -190,14 +190,16 @@ def build_designer_negative_prompt(*, layout: str | None = None) -> str:
     return "\n".join(_np_dedupe_keep_order(parts)).strip()
 
 AV_EQUIPMENT_PROMPTS = {
-    "IN": """
+"IN": """
 STAGE AND PRESENTER
+
 
 At the far end of the room, centred in the image, is a clean and minimal black stage.
 The stage is four point eight metres wide and two point four metres deep.
-The stage brand is Megadeck and the stage is three hundred millimetres high.
+Stage brand is megadeck, which is three hundred millimetres high.
 The stage has a black stage skirt on all visible sides.
-There is a single black tread providing access to the stage.
+There is a single black tread providing access.
+
 
 A single black Lectrum lectern is placed stage right from the perspective of the camera.
 A single female presenter is standing at the lectern speaking.
@@ -207,23 +209,26 @@ She does not look at the camera.
 
 LED WALL
 
+
 Behind the stage is a single LED wall.
 The LED wall is five metres wide and three metres high.
 The LED wall starts at stage level with no gap.
-The LED wall displays a solid white background with hex colour #ffffff.
-The LED wall displays black text reading “AIME 2026”.
-        
+The LED wall displays corporate event content with black text reading “AIME 2026”.
+The background image displayed on the LED wall is the second provided reference image, depicting the Sydney Harbour Bridge.
+
 
 AUDIO VISUAL CONSTRAINTS
+
 
 No additional audio visual equipment is present beyond what is specified.
 
 
 HOUSE AND STAGE LIGHTING AND COLOUR TEMPERATURE
 
+
 Lighting is a primary driver of mood and depth.
-Stage lighting is soft white with a colour temperature between 4000 and 4200 kelvin, providing clarity without harshness.
-House lighting is dimmed and warmer, with a colour temperature between 3200 and 3500 kelvin, adding warmth and comfort to the audience areas.
+Stage lighting is soft white with a colour temperature around 4000 to 4200 kelvin, providing clarity without harshness.
+House lighting is dimmed and warmer, around 3200 to 3500 kelvin, adding warmth and comfort to the audience.
 """
 }
 
