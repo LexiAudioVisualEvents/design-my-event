@@ -5,7 +5,12 @@ import "./styles.css";
 const MOODS = ["Editorial", "Luxe", "Minimal", "Mediterranean", "Manhattan"];
 const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
 const AV_EQUIPMENT = ["IN", "OUT"];
-const UPLIGHTING_COLOURS = ["Col1", "Col2", "Col3", "Col4"];
+const UPLIGHTING_COLOURS = [
+	{ label: "Warm", value: "Col1" },
+	{ label: "Red", value: "Col2" },
+	{ label: "Green", value: "Col3" },
+	{ label: "Blue", value: "Col4" },
+];
 const API_BASE = import.meta.env.VITE_API_URL;
 
 const VENUES = {
@@ -33,15 +38,19 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
 
       <div className="grid">
         {items.map((item) => {
-          const selected = value === item;
+          const itemValue = typeof item === "string" ? item : item.value;
+		  const itemLabel = typeof item === "string" ? item : item.label;
+		  
+		  const selected = value === itemValue;
+		  
           return (
             <button
-              key={item}
+              key={itemValue}
               className={`tile ${selected ? "selected" : ""}`}
-              onClick={() => onChange(item)}
+              onClick={() => onChange(itemValue)}
               type="button"
             >
-              <div className="tileTitle">{item}</div>
+              <div className="tileTitle">{itemLabel}</div>
               <div className="tileHint">{selected ? "✓ Locked in" : "Select"}</div>
             </button>
           );
