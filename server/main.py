@@ -94,6 +94,7 @@ def cache_key(payload: GenerateRequest) -> str:
         f"{payload.mood}|{payload.layout}|{payload.room or ''}|"
         f"{payload.venue_image_url or ''}|"
         f"{payload.av_equipment or ''}"
+        f"{payload.uplighting_colour or ''}"
     )
     return hashlib.sha256(raw.lower().encode("utf-8")).hexdigest()
 
@@ -226,8 +227,13 @@ House lighting is dimmed and warmer, with a colour temperature between 3200 and 
 """
 }
 
-
-
+UPLIGHTING_PROMPTS = {
+# Replace the placeholder strings below with your designer-tested prompts (do not change their wording).
+"col1": """UPLIGHTING COL1 PROMPT GOES HERE""",
+"col2": """UPLIGHTING COL2 PROMPT GOES HERE""",
+"col3": """UPLIGHTING COL3 PROMPT GOES HERE""",
+"col4": """UPLIGHTING COL4 PROMPT GOES HERE""",
+}
 
 # --------------------------------------------------
 # Prompt builder
@@ -471,6 +477,10 @@ def generate(req: GenerateRequest, request: Request):
     
     if (req.av_equipment or "").strip().upper() == "IN":
         prompt = prompt + "\n\n" + AV_EQUIPMENT_PROMPTS["IN"].strip()
+        
+    upl_key = (req.uplighting_colour or "").strip().lower()
+    if upl_key in UPLIGHTING_PROMPTS and UPLIGHTING_PROMPTS[upl_key].strip():
+        prompt = prompt + "\n\n" + UPLIGHTING_PROMPTS[upl_key].strip()
 
     try:
         image_url = replicate_generate_image_url(
