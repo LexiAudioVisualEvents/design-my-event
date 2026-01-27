@@ -185,7 +185,6 @@ export default function App() {
 			value={layout}
 			onChange={setLayout}
 			note="*Theatre Style requires Audio Visual Equipment to be IN"
-/>
 		/>
 		<TileGroup
 			title="Audio Visual Equipment"
