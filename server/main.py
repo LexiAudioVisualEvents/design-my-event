@@ -229,10 +229,14 @@ House lighting is dimmed and warmer, with a colour temperature between 3200 and 
 
 UPLIGHTING_PROMPTS = {
 # Replace the placeholder strings below with your designer-tested prompts (do not change their wording).
-"col1": """UPLIGHTING COL1 PROMPT GOES HERE""",
-"col2": """UPLIGHTING COL2 PROMPT GOES HERE""",
-"col3": """UPLIGHTING COL3 PROMPT GOES HERE""",
-"col4": """UPLIGHTING COL4 PROMPT GOES HERE""",
+    "col1": """WARM WHITE UP LIGHTING PROMPT
+Ambient warm white uplighting washes the walls evenly with a RGB colour (127,63,13). Uplights are placed one meter apart, delivering bold, high-impact vertical illumination across all wall surfaces. The lighting is intentionally punchy and visually assertive, with stronger contrast and heightened colour intensity that enhances architectural definition and spatial depth. Overlapping light fields create pronounced gradients and dimensionality rather than flat washes. House lighting is dimmed to approximately fifteen percent intensity, allowing the uplighting to dominate the visual field while maintaining safe ambient visibility. Coverage remains even and controlled, with no spill, glare, haze, or special effects.""",
+    "col2": """RED UP LIGHTING PROMPT 
+Ambient red uplighting washes the walls evenly with a RGB colour (250,80,83). Uplights are placed one meter apart, delivering bold, high-impact vertical illumination across all wall surfaces. The lighting is intentionally punchy and visually assertive, with stronger contrast and heightened colour intensity that enhances architectural definition and spatial depth. Overlapping light fields create pronounced gradients and dimensionality rather than flat washes. House lighting is dimmed to approximately fifteen percent intensity, allowing the uplighting to dominate the visual field while maintaining safe ambient visibility. Coverage remains even and controlled, with no spill, glare, haze, or special effects.""",
+    "col3": """GREEN UP LIGHTING PROMPT 
+Ambient green uplighting washes the walls evenly with a RGB colour (0,255,0). Uplights are placed one meter apart, delivering bold, high-impact vertical illumination across all wall surfaces. The lighting is intentionally punchy and visually assertive, with stronger contrast and heightened colour intensity that enhances architectural definition and spatial depth. Overlapping light fields create pronounced gradients and dimensionality rather than flat washes. House lighting is dimmed to approximately fifteen percent intensity, allowing the uplighting to dominate the visual field while maintaining safe ambient visibility. Coverage remains even and controlled, with no spill, glare, haze, or special effects.""",
+    "col4": """BLUE UP LIGHTING PROMPT 
+Ambient blue uplighting washes the walls evenly with a RGB colour (0,255,240). Uplights are placed one meter apart, delivering bold, high-impact vertical illumination across all wall surfaces. The lighting is intentionally punchy and visually assertive, with stronger contrast and heightened colour intensity that enhances architectural definition and spatial depth. Overlapping light fields create pronounced gradients and dimensionality rather than flat washes. House lighting is dimmed to approximately fifteen percent intensity, allowing the uplighting to dominate the visual field while maintaining safe ambient visibility. Coverage remains even and controlled, with no spill, glare, haze, or special effects.""",
 }
 
 # --------------------------------------------------
