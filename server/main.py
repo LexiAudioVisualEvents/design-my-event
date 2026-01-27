@@ -495,7 +495,7 @@ def generate(req: GenerateRequest, request: Request):
     if (req.av_equipment or "").strip().upper() == "IN" and req.venue_image_url:
         base, last = req.venue_image_url.rsplit("/", 1)
         ext = "." + last.split(".")[-1] if "." in last else ".JPG"
-        av_reference_url = f"{base}/av-in.jpg{ext}"
+        av_reference_url = f"{base}/av-in.jpg"
 
 
     try:
