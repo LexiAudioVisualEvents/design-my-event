@@ -380,6 +380,7 @@ def replicate_generate_image_url(
     prompt: str,
     venue_image_url: Optional[str] = None,
     layout: Optional[str] = None,
+    av_reference_url: Optional[str] = None,
 ) -> str:
     if not REPLICATE_API_TOKEN:
         raise RuntimeError("REPLICATE_API_TOKEN not configured")
@@ -417,10 +418,17 @@ def replicate_generate_image_url(
     # Reference image handling
     if venue_image_url:
         if model in ("google/nano-banana", "google/nano-banana-pro"):
-            payload["input"]["image_input"] = [venue_image_url]
-        else:
-            payload["input"]["image"] = venue_image_url
-            payload["input"]["prompt_strength"] = 0.6
+            image_inputs = []
+            if venue_image_url:
+                image_inputs.append(venue_image_url)
+        if av_reference_url:
+                image_inputs.append(av_reference_url)
+        if image_inputs:
+                payload["input"]["image_input"] = image_inputs
+    else:
+        if venue_image_url:
+                payload["input"]["image"] = venue_image_url
+                payload["input"]["prompt_strength"] = 0.6
 
     with httpx.Client(timeout=120.0) as client:
         r = client.post(create_url, headers=headers, json=payload)
@@ -486,11 +494,21 @@ def generate(req: GenerateRequest, request: Request):
     if upl_key in UPLIGHTING_PROMPTS and UPLIGHTING_PROMPTS[upl_key].strip():
         prompt = prompt + "\n\n" + UPLIGHTING_PROMPTS[upl_key].strip()
 
+    # If AV is IN, use a second reference image: av-in (bridge)
+    av_reference_url = None
+    if (req.av_equipment or "").strip().upper() == "IN" and req.venue_image_url:
+        base, last = req.venue_image_url.rsplit("/", 1)
+        ext = "." + last.split(".")[-1] if "." in last else ".JPG"
+        av_reference_url = f"{base}/av-in{ext}"
+
+
     try:
-        image_url = replicate_generate_image_url(
-            prompt,
-            req.venue_image_url,
-            req.layout
+    image_url = replicate_generate_image_url(
+        prompt,
+        req.venue_image_url,
+        req.layout,
+        av_reference_url,
+)
 )
         data_url = download_image_as_data_url(image_url)
 
