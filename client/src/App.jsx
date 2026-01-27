@@ -26,7 +26,7 @@ const VENUES = {
   },
 };
 
-function TileGroup({ title, items, value, onChange, subtitle }) {
+function TileGroup({ title, items, value, onChange, subtitle, note }) {
   return (
     <section className="card">
       <div className="cardHeader">
@@ -56,7 +56,15 @@ function TileGroup({ title, items, value, onChange, subtitle }) {
           );
         })}
       </div>
-    </section>
+
+
+		{note ? (
+			<p className="muted" style={{ marginTop: 12 }}>
+				{note}
+			</p>
+		) : null}
+</section>	
+
   );
 }
 
@@ -176,6 +184,8 @@ export default function App() {
 			items={LAYOUTS}
 			value={layout}
 			onChange={setLayout}
+			note="*Theatre Style requires Audio Visual Equipment to be IN"
+/>
 		/>
 		<TileGroup
 			title="Audio Visual Equipment"
