@@ -287,9 +287,7 @@ export default function App() {
         </div>
       </main>
 
-      <footer className="footer muted">
-        Tip: put this on a kiosk iPad, full-screen Chrome/Edge. Keep a “Room” preset per space if you want it to feel venue-specific.
-      </footer>
+      <footer className="footer muted"></footer>
     </div>
   );
 }
