@@ -83,7 +83,7 @@ def throttle(request: Request):
     if now - last < RATE_LIMIT_SECONDS:
         raise HTTPException(
             status_code=429,
-            detail="Too many requests. Please wait a moment."
+            detail="Hi there — I’m generating in the background. Wait ~3 seconds, then press Generate again."
         )
 
     _last_call_by_ip[ip] = now
