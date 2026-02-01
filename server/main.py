@@ -503,7 +503,7 @@ def generate(req: GenerateRequest, request: Request):
         av_reference_url = f"{base}/av-in.jpg"
 
 
-        try:
+    try:
         image_url = replicate_generate_image_url(
             prompt,
             req.venue_image_url,
