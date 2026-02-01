@@ -503,7 +503,7 @@ def generate(req: GenerateRequest, request: Request):
         av_reference_url = f"{base}/av-in.jpg"
 
 
-    try:
+        try:
         image_url = replicate_generate_image_url(
             prompt,
             req.venue_image_url,
@@ -520,7 +520,42 @@ def generate(req: GenerateRequest, request: Request):
         set_cached(key, resp)
         return GenerateResponse(**resp, cache_hit=False)
 
+    except httpx.HTTPStatusError as e:
+        status = None
+        try:
+            status = e.response.status_code
+        except Exception:
+            status = None
+
+        request_url = ""
+        try:
+            request_url = str(getattr(e.request, "url", ""))
+        except Exception:
+            request_url = ""
+
+        replicate_request_id = ""
+        try:
+            replicate_request_id = e.response.headers.get("x-request-id", "") if e.response else ""
+        except Exception:
+            replicate_request_id = ""
+
+        print(
+            f"[replicate] HTTPStatusError status={status} url={request_url} x-request-id={replicate_request_id}"
+        )
+
+        if status == 429:
+            raise HTTPException(
+                status_code=429,
+                detail="Replicate is throttling/busy right now. Wait ~10 seconds, then press Generate again."
+            )
+
+        raise HTTPException(
+            status_code=502,
+            detail=f"Upstream Replicate error ({status}). Please try again."
+        )
+
     except Exception as e:
+        print(f"[generate] Unexpected error: {type(e).__name__}: {e}")
         raise HTTPException(
             status_code=500,
             detail=f"Image generation failed: {e}"
