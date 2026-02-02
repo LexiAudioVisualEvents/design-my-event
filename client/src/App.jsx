@@ -4,7 +4,10 @@ import "./styles.css";
 
 const MOODS = ["Editorial", "Luxe", "Minimal", "Mediterranean", "Manhattan"];
 const LAYOUTS = ["Cocktail", "Long Tables", "Banquet", "Theatre"];
-const AV_EQUIPMENT = ["IN", "OUT"];
+const AV_EQUIPMENT = [
+	{ label: "Yes", value: "IN" },
+	{ label: "No", value: "OUT" },
+];
 const UPLIGHTING_COLOURS = [
 	{ label: "Warm", value: "Col1" },
 	{ label: "Red", value: "Col2" },
@@ -171,7 +174,7 @@ export default function App() {
           </section>
 
 		<TileGroup
-			title="Mood"
+			title="Style"
 			subtitle="Overall styling language"
 			items={MOODS}
 			value={mood}
@@ -188,7 +191,7 @@ export default function App() {
 		/>
 		<TileGroup
 			title="Audio Visual Equipment"
-			subtitle="Is AV in the room?"
+			subtitle="Do you require AV setup in the room"
 			items={AV_EQUIPMENT}
 			value={avEquipment}
 			onChange={setAvEquipment}
