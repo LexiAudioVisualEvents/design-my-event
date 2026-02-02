@@ -154,6 +154,18 @@ No candles
 No tabletop styling elements
 No decorative plants
 No uplighting applied to plants
+No stage positioned to the left or right of the room centre
+No stage positioned on camera left or camera right
+No off centre stage placement
+No diagonal stage orientation
+No angled stage or angled presenter
+No audience looking across the room
+No lateral audience sightlines
+No presenter offset from the central axis
+No LED wall offset from the central axis
+No asymmetrical theatre layouts
+No cinematic rule of thirds composition
+No dramatic off centre framing
 """.strip()
     }
 }
