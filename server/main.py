@@ -375,6 +375,16 @@ def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
     "Theatre": (
         'SEATING_MODE = "THEATRE"\n'
         "\n"
+        "THEATRE MODE ABSOLUTE ISOLATION\n"
+        "\n"
+        "Theatre mode is row-driven, not table-driven. Ignore and suppress any table/centrepiece/table-foreground logic.\n"
+        "\n"
+        "Density and depth are created only by rows of seats, the central aisle, and the audience. Foreground framing uses the nearest seated rows and the central aisle only.\n"
+        "\n"
+        "ABSOLUTE PROHIBITIONS (THEATRE MODE)\n"
+        "\n"
+        "Never generate: tables of any kind, table centrepieces of any kind, floral arrangements, vases, candles, tabletop decor, decorative plants or plant uplighting, highboys, bars, cocktail furniture, loose seating, chair covers, bows, sashes, standing attendees, or attendees facing/looking toward the camera.\n"
+        "\n"
         "The room is already fully set and correctly designed. There is theatre style seating installed in the room. There are EXACTLY sixty theatre seats. No additional seating of any kind is present. The space feels full, balanced, and intentionally designed.\n"
         "\n"
         "The seating layout is fixed and symmetrical. There is a single central aisle positioned exactly in the middle of the image. The aisle runs in a straight line from the stage toward the camera. On each side of the central aisle are rows of seats. Each row consists of exactly five seats on the left side of the aisle and five seats on the right side of the aisle. Seating rows are evenly spaced, aligned precisely toward the stage, and professionally planned. No seats are missing. No seats are moved. The layout must be preserved exactly as specified.\n"
