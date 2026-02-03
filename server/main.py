@@ -475,6 +475,8 @@ Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. N
         "\n"
         "Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Body posture is natural, attentive, and relaxed, with realistic proportions and subtle variation. Attendees remain focused on the stage and never look at the camera.\n"
         "\n"
+        "All attendees face away from the camera. No faces, heads, eyes, or torsos turn toward the camera. No attendee ever looks toward the camera.\n"
+        "\n"
         "THEATRE DEPTH AND CAMERA READ\n"
         "\n"
         "Depth and density in theatre mode are created exclusively through rows, aisles, and human massing. Foreground is defined by the nearest seated rows and the central aisle. Midground is the densest concentration of seated attendees. Background resolves the stage and presenter clearly. Depth is reinforced by row repetition, central aisle perspective convergence, and subtle depth of field falloff. The image reads as layered, immersive, and three dimensional.\n"
