@@ -469,7 +469,7 @@ Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. N
         "\n"
         "The room is already fully set and correctly designed. The seating configuration is fixed, symmetrical, and immutable. There is theatre style seating installed in the room. There are EXACTLY sixty theatre seats. No additional seating of any kind is present. The space feels full, balanced, and intentionally designed.\n"
         "\n"
-        "The seating layout is fixed and symmetrical. There is a single central aisle positioned exactly in the middle of the image. The aisle runs in a straight line from the stage toward the camera. On each side of the central aisle are rows of seats. Each row consists of exactly five seats on the left side of the aisle and five seats on the right side of the aisle. Seating rows are evenly spaced, aligned precisely toward the stage, and professionally planned. No seats are missing. No seats are moved. No seats are duplicated. No seats are altered. The layout must be preserved exactly as specified.\n"
+        "The seating layout is fixed and symmetrical. There is a single central aisle positioned exactly in the middle of the image. The aisle runs in a straight line from the stage toward the camera. On each side of the central aisle are rows of seats. Each row consists of exactly five seats on the left side of the aisle and five seats on the right side of the aisle. Seating rows are evenly spaced, aligned precisely toward the stage, mirrored left to right, and professionally planned. No seats are missing. No seats are moved. No seats are duplicated. No seats are altered. The layout must be preserved exactly as specified.\n"
         "\n"
         "This geometry must be preserved exactly.\n"
         "\n"
