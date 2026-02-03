@@ -471,6 +471,8 @@ Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. N
         "\n"
         "The seating layout is fixed and symmetrical. There is a single central aisle positioned exactly in the middle of the image. The aisle runs in a straight line from the stage toward the camera. On each side of the central aisle are rows of seats. Each row consists of exactly five seats on the left side of the aisle and five seats on the right side of the aisle. Seating rows are evenly spaced, aligned precisely toward the stage, and professionally planned. No seats are missing. No seats are moved. No seats are duplicated. No seats are altered. The layout must be preserved exactly as specified.\n"
         "\n"
+        "This geometry must be preserved exactly.\n"
+        "\n"
         "All sixty seats are occupied. No seats are empty. Attendees are seated facing the stage and evenly distributed across the room so the audience reads as complete, dense, and intentionally arranged. There are no gaps, irregularities, or visual voids in the seating layout.\n"
         "\n"
         "All attendees face the presentation focal point.\n"
