@@ -146,14 +146,6 @@ In no circumstances is the bottom row of the LED wall ever to be lifted above st
 
     "layout": {
         "Theatre": """
-No tables
-No centrepieces
-No floral arrangements
-No vases
-No candles
-No tabletop styling elements
-No decorative plants
-No uplighting applied to plants
 No stage positioned to the left or right of the room centre
 No stage positioned on camera left or camera right
 No off centre stage placement
@@ -283,6 +275,96 @@ def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
         "no text, no logos, no watermark."
     )
 
+    unbreakable_rules = """
+UNBREAKABLE RULES
+SEATING_MODE = "THEATRE" | "BANQUET" | "LONG_TABLE" | "COCKTAIL"
+The seating mode variable controls all layout and styling behaviour. All conditional rules below are absolute and must not be violated.
+
+THEATRE MODE ABSOLUTE ISOLATION
+When SEATING_MODE = "THEATRE" the following rules override and suppress all other layout, density, and styling logic, including any logic written for tables, centrepieces, or table driven depth.
+
+Theatre mode is row driven, not table driven. No table language, table density logic, or table foreground framing may apply. Any instruction that assumes tables or centrepieces is automatically nullified.
+THEATRE OVERRIDE FOR DENSITY AND DEPTH
+
+When SEATING_MODE = "THEATRE" ignore any instruction anywhere in this prompt that mentions tables, centrepieces, table styling, or table based foreground framing.
+In theatre mode, density and depth are created only by rows of seats, the central aisle, and the audience. Foreground framing uses the nearest seated rows and the central aisle only. No table based framing or table based depth cues are permitted.
+
+ABSOLUTE PROHIBITIONS
+When SEATING_MODE = "THEATRE" the model must never generate:
+Tables of any kind, table centrepieces of any kind, floral arrangements, vases, candles, or tabletop décor, decorative plants or plant uplighting, highboys, bars, cocktail furniture, or loose seating, chair covers, bows, sashes, or decorative excess, standing attendees, attendees facing or looking toward the camera. These rules take precedence over all mood, density, depth, or framing instructions.
+
+NON THEATRE MODES
+IF SEATING_MODE = "BANQUET" OR "LONG_TABLE" OR "COCKTAIL"
+Tables are present and correctly configured for the seating mode.
+Tables MUST include centrepieces. Centrepieces are a primary visual element. Centrepieces repeat consistently across the space to create visual rhythm. Centrepieces scale appropriately to table type and spacing.
+
+CENTREPIECE RULE
+Centrepieces may ONLY exist when SEATING_MODE is "BANQUET" or "LONG_TABLE" or "COCKTAIL"
+Centrepieces may NEVER exist when SEATING_MODE is "THEATRE"
+
+BASE IMAGE AND VENUE
+The base venue image is always the primary reference. The final image must preserve the exact architecture, room proportions, ceiling height, wall edges, floor edges, columns, window locations, door locations, stage placement, and camera viewpoint.
+
+FIXED STRUCTURE AND CAMERA CONSTRAINTS
+The camera must remain in the exact same position, height, angle, and lens perspective as the base image.
+No shifting perspective. No reframing. No zooming. No cropping. No changing vanishing points.
+All vertical lines and architectural edges must remain aligned to the base image.
+
+CORE VISUAL DRIVERS
+The only changes allowed are:
+Event styling (linen, chairs, table settings, centrepieces, decor)
+Lighting, uplighting, and ambience
+People (crowd density, placement, and attire as directed)
+Audio visual equipment ONLY when AV prompt is active
+
+GLOBAL LAYOUT AND SPATIAL DENSITY
+The room must feel full, balanced, and intentionally designed.
+No empty areas, no sparse spacing, no “too clean” or vacant zones.
+Density must match the seating mode and its rules.
+
+WINDOWS AND EXTERIOR VIEW
+Windows must remain fully visible and unchanged.
+No curtains, no blinds, no frosting, no stickers, no covering windows.
+Exterior skyline and water view must remain exactly as in the base image.
+No changes to weather, time of day, or exterior brightness.
+
+FINAL VISUAL INTENT
+High-end corporate event photography look.
+Ultra realistic materials, lighting, and shadows.
+No stylised rendering. No illustrations. No CGI look.
+
+STAGE ARCHITECTURAL ANCHOR
+The stage is a fixed architectural anchor when AV PROMPT is active.
+Stage position, width, depth, and centre alignment must follow the AV PROMPT exactly.
+No alternative stage placement or orientation is permitted.
+
+THEATRE MODE ONLY
+STAGE AXIS LOCK
+When SEATING_MODE = "THEATRE" the stage and LED wall MUST be centred.
+No shifting left or right.
+No diagonal stage angles.
+No stage offset from central axis.
+
+THEATRE MODE ONLY
+FRAME CENTRELINE HARD LOCK
+The centre aisle, stage, LED wall, and presenter axis must align with the exact centreline of the frame.
+Any off-centre placement is invalid.
+
+THEATRE MODE ONLY
+FRAME SYMMETRY LOCK
+Theatre layout must remain perfectly symmetrical across the image.
+Left and right seating blocks must mirror each other.
+Any asymmetry or lateral drift is invalid.
+The audience must feel deliberately arranged with full occupancy.
+
+THEATRE PRESENTER LOGIC
+IF SEATING_MODE = "THEATRE" AND AV PROMPT is NOT active
+A single female presenter stands at floor level at the front of the room beyond the audience forward facing direction. She holds a handheld microphone. No stage, lectern, LED wall, or AV infrastructure is present.
+IF SEATING_MODE = "THEATRE" AND AV PROMPT IS active
+Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. No deviations or additions are permitted.
+""".strip()
+
+
     mood_map = {
         "Editorial": (
             "EDITORIAL MOOD\n\n"
@@ -400,6 +482,7 @@ def build_prompt(mood: str, layout: str, room: Optional[str]) -> str:
         venue_lock,
         allowed_changes,
         composition,
+        unbreakable_rules,
         mood_map.get(mood, mood),
         layout_map.get(layout, layout)
     ])
