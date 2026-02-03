@@ -474,6 +474,10 @@ Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. N
         "All sixty seats are occupied. No seats are empty. Attendees are seated facing the stage and evenly distributed across the room so the audience reads as complete, dense, and intentionally arranged. There are no gaps, irregularities, or visual voids in the seating layout.\n"
         "\n"
         "Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Body posture is natural, attentive, and relaxed, with realistic proportions and subtle variation. Attendees remain focused on the stage and never look at the camera.\n"
+        "\n"
+        "THEATRE DEPTH AND CAMERA READ\n"
+        "\n"
+        "Depth and density in theatre mode are created exclusively through rows, aisles, and human massing. Foreground is defined by the nearest seated rows and the central aisle. Midground is the densest concentration of seated attendees. Background resolves the stage and presenter clearly. Depth is reinforced by row repetition, central aisle perspective convergence, and subtle depth of field falloff. The image reads as layered, immersive, and three dimensional.\n"
     ),
 }
    
