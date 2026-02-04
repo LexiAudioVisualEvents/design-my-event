@@ -479,7 +479,7 @@ Presenter, stage, LED wall, and AV configuration follow the AV PROMPT exactly. N
         "\n"
         "Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Body posture is natural, attentive, and relaxed, with realistic proportions and subtle variation. Attendees remain focused on the stage and never look at the camera.\n"
         "\n"
-        "All attendees face away from the camera. No faces, heads, eyes, or torsos turn toward the camera. No attendee ever looks toward the camera.\n"
+        "All attendees face away from the camera. No faces, heads, eyes, or torsos turn toward the camera.\n"
         "\n"
         "THEATRE DEPTH AND CAMERA READ\n"
         "\n"
