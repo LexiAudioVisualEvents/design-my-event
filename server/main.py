@@ -612,79 +612,71 @@ Ultra-high resolution, photorealistic materials.
 """.strip()),
     }
 
-
     layout_map = {
-    "Cocktail": (
-        'SEATING_MODE = "COCKTAIL"\n'
-        "\n"
-        "The room is already fully set and correctly designed. There are cocktail tables installed throughout the space. No additional furniture or seating of any kind is present. The layout feels full, balanced, and intentionally designed, with no empty central space and no visual voids between tables.\n"
-        "\n"
-        "Every cocktail table is occupied. Each table has a minimum of two attendees standing around it, with some tables accommodating three or four attendees. No cocktail table is unoccupied. Attendees are evenly distributed across the room so that crowd density reads as complete, natural, and professionally planned. There are no gaps between table groupings and no areas of unused floor space.\n"
-        "\n"
-        "Attendees are standing and engaged in conversation with others at their table. Body language is relaxed, social, and varied. Attendees have natural, happy expressions and realistic body proportions. Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Attendees never look at the camera.\n"
-        "\n"
-        "Two wait staff are walking through scene holding a drinks tray with half full red and white wine glasses.\n"
-        "\n"
-        "Cocktail tables are a strong visual element within the scene. All tables feature luxe, premium styling, including high end linens, elegant centrepieces, and sophisticated corporate event finishes. Centrepieces repeat consistently across the room to create visual rhythm and cohesion. Materials feel tactile, weighted, and realistic, with finishes consistent across all tables.\n"
-    ),
+        "Cocktail": ("""
+COCKTAIL TABLES AND ATTENDEES
+SEATING_MODE = "COCKTAIL"
 
-    "Long Tables": (
-        'SEATING_MODE = "LONG_TABLE"\n'
-        "\n"
-        "The room is already fully set and correctly designed. There are long banquet tables installed in the room. No additional tables of any kind are present. The layout feels full, balanced, and intentionally designed.\n"
-        "\n"
-        "Attendees are seated at the long tables. Each long table seats exactly ten attendees per side. All seats are occupied. Attendees are evenly distributed along the length of each table so the space reads as complete and professionally planned. There are no gaps, empty seats, or irregularities in the seating arrangement.\n"
-        "\n"
-        "Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Facial expressions are natural and happy, with realistic body proportions and subtle variation. Attendees are engaged with others seated near them. Attendees never look at the camera.\n"
-        "\n"
-        "At two tables wait staff are leaning over and pouring champagne into flutes.\n"
-        "\n"
-        "Long tables are a strong visual element within the scene. All tables feature centrepieces. Centrepieces repeat consistently along the length of the tables to create visual rhythm and cohesion. Materials feel realistic, with finishes consistent across all tables.\n"
-    ),
+The room is already fully set and correctly designed. There are cocktail tables installed throughout the space. No additional furniture or seating of any kind is present. The layout feels full, balanced, and intentionally designed, with no empty central space and no visual voids between tables.
 
-    "Banquet": (
-        'SEATING_MODE = "BANQUET"\n'
-        "\n"
-        "The room is already fully set and correctly designed. There are round banquet tables installed in the room. There are EXACTLY six round banquet tables. No additional tables of any kind are present. Fill the space with tables and people at every seat. The room feels full, balanced, and intentionally designed. Each round banquet table seats exactly ten attendees. All seats are occupied. Attendees are seated evenly around each table and engaged in conversation with others at their table. Body language is natural, social, and varied. Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Attendees never look at the camera.\n"
-        "\n"
-        "At two tables wait staff are leaning over and pouring champagne into flutes.\n"
-        "\n"
-        "Tables are a strong visual element within the scene. They feature high end linens with subtle fabric texture, refined centrepieces, and understated sculptural accents. Centrepieces repeat consistently across the room to create visual rhythm. Materials feel tactile, weighted, and realistic.\n"
-    ),
+Every cocktail table is occupied. Each table has a minimum of two attendees standing around it, with some tables accommodating three or four attendees. No cocktail table is unoccupied. Attendees are evenly distributed across the room so that crowd density reads as complete, natural, and professionally planned. There are no gaps between table groupings and no areas of unused floor space.
 
-    "Theatre": (
-        'SEATING_MODE = "THEATRE"\n'
-        "\n"
-        "THEATRE MODE ABSOLUTE ISOLATION\n"
-        "\n"
-        "Theatre mode is row-driven, not table-driven. Ignore and suppress any table/centrepiece/table-foreground logic.\n"
-        "\n"
-        "Density and depth are created only by rows of seats, the central aisle, and the audience. Foreground framing uses the nearest seated rows and the central aisle only.\n"
-        "\n"
-        "ABSOLUTE PROHIBITIONS (THEATRE MODE)\n"
-        "\n"
-        "Never generate: tables of any kind, table centrepieces of any kind, floral arrangements, vases, candles, tabletop decor, decorative plants or plant uplighting, highboys, bars, cocktail furniture, loose seating, chair covers, bows, sashes, standing attendees, or attendees facing/looking toward the camera.\n"
-        "\n"
-        "The room is already fully set and correctly designed. The seating configuration is fixed, symmetrical, and immutable. There is theatre style seating installed in the room. There are EXACTLY sixty theatre seats. No additional seating of any kind is present. The space feels full, balanced, and intentionally designed.\n"
-        "\n"
-        "The seating layout is fixed and symmetrical. There is a single central aisle positioned exactly in the middle of the image. The aisle runs in a straight line from the stage toward the camera. On each side of the central aisle are rows of seats. Each row consists of exactly five seats on the left side of the aisle and five seats on the right side of the aisle. Seating rows are evenly spaced, aligned precisely toward the stage, mirrored left to right, and professionally planned. No seats are missing. No seats are moved. No seats are duplicated. No seats are altered. The layout must be preserved exactly as specified.\n"
-        "\n"
-        "This geometry must be preserved exactly.\n"
-        "\n"
-        "All sixty seats are occupied. No seats are empty. Attendees are seated facing the stage and evenly distributed across the room so the audience reads as complete, dense, and intentionally arranged. There are no gaps, irregularities, or visual voids in the seating layout.\n"
-        "\n"
-        "All attendees face the presentation focal point.\n"
-        "\n"
-        "Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Body posture is natural, attentive, and relaxed, with realistic proportions and subtle variation. Attendees remain focused on the stage and never look at the camera.\n"
-        "\n"
-        "All attendees face away from the camera. No faces, heads, eyes, or torsos turn toward the camera.\n"
-        "\n"
-        "THEATRE DEPTH AND CAMERA READ\n"
-        "\n"
-        "Depth and density in theatre mode are created exclusively through rows, aisles, and human massing. Foreground is defined by the nearest seated rows and the central aisle. Midground is the densest concentration of seated attendees. Background resolves the stage and presenter clearly. Depth is reinforced by row repetition, central aisle perspective convergence, and subtle depth of field falloff. The image reads as layered, immersive, and three dimensional.\n"
-    ),
-}
-   
+Attendees are standing and engaged in conversation with others at their table. Body language is relaxed, social, and varied. Attendees have natural, happy expressions and realistic body proportions. Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Attendees never look at the camera.
+
+Two wait staff are walking through scene holding a drinks tray with half full red and white wine glasses.
+
+Cocktail tables are a strong visual element within the scene. All tables feature luxe, premium styling, including high end linens, elegant centrepieces, and sophisticated corporate event finishes. Centrepieces repeat consistently across the room to create visual rhythm and cohesion. Materials feel tactile, weighted, and realistic, with finishes consistent across all tables.
+""".strip()),
+
+        "Long Tables": ("""
+LONG TABLES AND ATTENDEES
+SEATING_MODE = " LONG_TABLE "
+
+The room is already fully set and correctly designed. There are long banquet tables installed in the room. No additional tables of any kind are present. The layout feels full, balanced, and intentionally designed.
+
+Attendees are seated at the long tables. Each long table seats exactly ten attendees per side. All seats are occupied. Attendees are evenly distributed along the length of each table so the space reads as complete and professionally planned. There are no gaps, empty seats, or irregularities in the seating arrangement.
+
+Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Facial expressions are natural and happy, with realistic body proportions and subtle variation. Attendees are engaged with others seated near them. Attendees never look at the camera.
+
+At two tables wait staff are leaning over and pouring champagne into flutes.
+
+Long tables are a strong visual element within the scene. All tables feature centrepieces. Centrepieces repeat consistently along the length of the tables to create visual rhythm and cohesion. Materials feel realistic, with finishes consistent across all tables.
+""".strip()),
+
+        "Banquet": ("""
+BANQUET SEATING AND ATTENDEES
+SEATING_MODE = "BANQUET"
+
+The room is already fully set and correctly designed. There are round banquet tables installed in the room. There are EXACTLY six round banquet tables. No additional tables of any kind are present. Fill the space with tables and people at every seat. The room feels full, balanced, and intentionally designed. Each round banquet table seats exactly ten attendees. All seats are occupied. Attendees are seated evenly around each table and engaged in conversation with others at their table. Body language is natural, social, and varied. Attendees are dressed smart casual with refined styling appropriate to a premium corporate environment. Attendees never look at the camera.
+
+At two tables wait staff are leaning over and pouring champagne into flutes.
+
+Tables are a strong visual element within the scene. They feature high end linens with subtle fabric texture, refined centrepieces, and understated sculptural accents. Centrepieces repeat consistently across the room to create visual rhythm. Materials feel tactile, weighted, and realistic.
+""".strip()),
+
+        "Theatre": ("""
+THEATRE SEATING 
+ROWED LAYOUT
+SEATING_MODE = "THEATRE"
+
+The room is already fully set and correctly designed. The seating configuration is fixed, symmetrical, and immutable. There are exactly sixty theatre seats. No additional seating exists. No seats are missing, moved, duplicated, or altered.
+
+ROW GEOMETRY
+
+A single central aisle runs in a straight line from the stage toward the camera. On each side of the aisle every row contains exactly: five seats on the left and five seats on the right, rows are evenly spaced, aligned precisely toward the stage, and mirrored left to right.
+
+This geometry must be preserved exactly.
+
+THEATRE ATTENDEES
+
+All seats are occupied. No empty seats. No gaps or irregularities. All attendees face the presentation focal point. All attendees face away from the camera. No faces, heads, eyes, or torsos turn toward the camera. Attendees are dressed smart casual appropriate to a premium corporate environment. Posture is attentive and natural.
+
+THEATRE DEPTH AND CAMERA READ
+
+Depth and density in theatre mode are created exclusively through rows, aisles, and human massing. Foreground is defined by the nearest seated rows and the central aisle. Midground is the densest concentration of seated attendees. Background resolves the stage and presenter clearly. Depth is reinforced by row repetition, central aisle perspective convergence, and subtle depth of field falloff. The image reads as layered, immersive, and three dimensional.
+""".strip()),
+    }
+
  
     return "\n".join([
         venue_lock,
